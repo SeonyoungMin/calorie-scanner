@@ -9,204 +9,296 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="칼로리 스캔">
 <meta name="theme-color" content="#ffffff">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%23FF6B35'/><text x='90' y='115' font-size='90' text-anchor='middle'>🍽️</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #F5F6F8;
-  --white: #fff;
-  --primary: #FF6B35;
-  --primary-light: #FFF1EC;
-  --primary-dark: #E85A26;
-  --text: #191F28;
-  --text2: #4E5968;
-  --text3: #8B95A1;
-  --border: #E8ECF0;
-  --green: #00C471;
-  --green-light: #E8FAF2;
-  --yellow: #F5A623;
-  --yellow-light: #FFF8EC;
-  --red: #F04452;
-  --red-light: #FFF0F1;
-  --nav: 60px;
-  --sat: env(safe-area-inset-top,0px);
-  --sab: env(safe-area-inset-bottom,0px);
-}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto Sans KR',-apple-system,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;}
-#app{display:flex;flex-direction:column;height:100%;padding-top:var(--sat);}
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-/* SCREENS */
-.scr{display:none;flex-direction:column;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:calc(var(–nav) + var(–sab) + 24px);}
-.scr.on{display:flex;}
+html, body {
+height: 100%;
+background: #F5F6F8;
+color: #191F28;
+font-family: -apple-system, ‘Noto Sans KR’, sans-serif;
+-webkit-font-smoothing: antialiased;
+overflow: hidden;
+}
+
+#app {
+display: flex;
+flex-direction: column;
+height: 100%;
+padding-top: env(safe-area-inset-top, 0px);
+}
 
 /* TOPBAR */
-.topbar{background:var(–white);padding:14px 20px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(–border);flex-shrink:0;}
-.topbar-title{font-size:17px;font-weight:700;}
-.gear-btn{width:36px;height:36px;background:var(–bg);border:none;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.gear-btn:active{background:var(–border);}
+.topbar {
+background: #fff;
+padding: 14px 20px 12px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+border-bottom: 1px solid #E8ECF0;
+flex-shrink: 0;
+}
+.topbar-title { font-size: 17px; font-weight: 700; }
+.gear-btn {
+width: 36px; height: 36px;
+background: #F5F6F8; border: none; border-radius: 50%;
+font-size: 18px; cursor: pointer;
+display: flex; align-items: center; justify-content: center;
+}
+
+/* SCREENS */
+.scr {
+display: none;
+flex-direction: column;
+flex: 1;
+overflow-y: auto;
+-webkit-overflow-scrolling: touch;
+padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px) + 20px);
+}
+.scr.on { display: flex; }
 
 /* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:0;right:0;height:calc(var(–nav) + var(–sab));padding-bottom:var(–sab);background:var(–white);border-top:1px solid var(–border);display:flex;z-index:100;}
-.nb{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:none;border:none;cursor:pointer;padding-top:6px;}
-.nb:active{transform:scale(0.88);}
-.nb-ico{font-size:22px;}
-.nb-txt{font-size:10px;font-weight:500;color:var(–text3);}
-.nb.on .nb-txt{color:var(–primary);font-weight:700;}
+.bnav {
+position: fixed;
+bottom: 0; left: 0; right: 0;
+height: calc(60px + env(safe-area-inset-bottom, 0px));
+padding-bottom: env(safe-area-inset-bottom, 0px);
+background: #fff;
+border-top: 1px solid #E8ECF0;
+display: flex;
+z-index: 100;
+}
+.nb {
+flex: 1;
+display: flex; flex-direction: column;
+align-items: center; justify-content: center;
+gap: 3px;
+background: none; border: none; cursor: pointer;
+padding-top: 6px;
+}
+.nb-ico { font-size: 22px; }
+.nb-txt { font-size: 10px; font-weight: 500; color: #8B95A1; }
+.nb.on .nb-txt { color: #FF6B35; font-weight: 700; }
 
 /* CONTENT */
-.content{padding:16px 20px;display:flex;flex-direction:column;gap:12px;}
+.content { padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
 
 /* CARD */
-.card{background:var(–white);border-radius:16px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
-.sec{font-size:12px;font-weight:600;color:var(–text3);margin-bottom:10px;}
+.card {
+background: #fff; border-radius: 16px; padding: 16px;
+box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.sec { font-size: 12px; font-weight: 600; color: #8B95A1; margin-bottom: 10px; }
 
-/* API INPUT */
-.row{display:flex;gap:8px;}
-.inp{flex:1;background:var(–bg);border:1.5px solid var(–border);border-radius:10px;padding:11px 14px;font-size:13px;color:var(–text);outline:none;font-family:inherit;min-width:0;}
-.inp:focus{border-color:var(–primary);}
-.inp::placeholder{color:var(–text3);}
-.sbtn{background:var(–primary);color:#fff;border:none;border-radius:10px;padding:11px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit;flex-shrink:0;}
-.sbtn:active{background:var(–primary-dark);}
-.sbtn.ok{background:var(–green);}
-.msg{font-size:12px;margin-top:8px;min-height:16px;font-weight:500;}
+/* INPUTS */
+.row { display: flex; gap: 8px; }
+.inp {
+flex: 1; background: #F5F6F8;
+border: 1.5px solid #E8ECF0; border-radius: 10px;
+padding: 11px 14px; font-size: 13px; color: #191F28;
+outline: none; font-family: inherit; min-width: 0;
+}
+.inp:focus { border-color: #FF6B35; }
+.inp::placeholder { color: #8B95A1; }
+
+/* BUTTONS */
+.sbtn {
+background: #FF6B35; color: #fff; border: none;
+border-radius: 10px; padding: 11px 16px;
+font-size: 13px; font-weight: 700; cursor: pointer;
+white-space: nowrap; font-family: inherit; flex-shrink: 0;
+}
+.sbtn.ok { background: #00C471; }
+.msg { font-size: 12px; margin-top: 8px; min-height: 16px; font-weight: 500; }
 
 /* MEAL CHIPS */
-.meal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-.chip{background:var(–bg);border:1.5px solid var(–border);border-radius:12px;padding:10px 4px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;}
-.chip-ico{font-size:22px;}
-.chip-txt{font-size:11px;font-weight:600;color:var(–text2);}
-.chip.on{background:var(–primary-light);border-color:var(–primary);}
-.chip.on .chip-txt{color:var(–primary);}
-.chip:active{transform:scale(0.92);}
+.meal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.chip {
+background: #F5F6F8; border: 1.5px solid #E8ECF0;
+border-radius: 12px; padding: 10px 4px;
+display: flex; flex-direction: column; align-items: center; gap: 4px;
+cursor: pointer;
+}
+.chip-ico { font-size: 22px; }
+.chip-txt { font-size: 11px; font-weight: 600; color: #4E5968; }
+.chip.on { background: #FFF1EC; border-color: #FF6B35; }
+.chip.on .chip-txt { color: #FF6B35; }
 
-/* UPLOAD BUTTONS */
-.up-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.up-btn{background:var(–white);border:1.5px solid var(–border);border-radius:16px;padding:20px 10px;text-align:center;cursor:pointer;position:relative;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05);}
-.up-btn input{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0;}
-.up-btn:active{border-color:var(–primary);background:var(–primary-light);}
-.up-ico{font-size:30px;margin-bottom:8px;}
-.up-txt{font-size:13px;font-weight:600;color:var(–text2);}
+/* UPLOAD */
+.up-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.up-btn {
+background: #fff; border: 1.5px solid #E8ECF0;
+border-radius: 16px; padding: 20px 10px;
+text-align: center; position: relative; overflow: hidden;
+box-shadow: 0 1px 4px rgba(0,0,0,0.05); cursor: pointer;
+}
+.up-btn input {
+position: absolute; inset: 0; opacity: 0;
+cursor: pointer; font-size: 0; width: 100%; height: 100%;
+}
+.up-ico { font-size: 30px; margin-bottom: 8px; }
+.up-txt { font-size: 13px; font-weight: 600; color: #4E5968; }
 
 /* PREVIEW */
-.prev{border-radius:16px;overflow:hidden;position:relative;display:none;box-shadow:0 2px 10px rgba(0,0,0,.1);}
-.prev img{width:100%;max-height:240px;object-fit:cover;display:block;}
-.prev-bar{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;background:linear-gradient(transparent,rgba(0,0,0,.65));display:flex;justify-content:space-between;align-items:center;}
-.prev-ok{font-size:12px;color:#fff;font-weight:600;}
-.prev-re{font-size:12px;color:#fff;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:4px 12px;cursor:pointer;}
+.prev {
+border-radius: 16px; overflow: hidden;
+position: relative; display: none;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.prev img { width: 100%; max-height: 240px; object-fit: cover; display: block; }
+.prev-bar {
+position: absolute; bottom: 0; left: 0; right: 0;
+padding: 12px 14px;
+background: linear-gradient(transparent, rgba(0,0,0,0.65));
+display: flex; justify-content: space-between; align-items: center;
+}
+.prev-ok { font-size: 12px; color: #fff; font-weight: 600; }
+.prev-re {
+font-size: 12px; color: #fff;
+background: rgba(255,255,255,0.2);
+border: 1px solid rgba(255,255,255,0.35);
+border-radius: 20px; padding: 4px 12px; cursor: pointer;
+}
 
 /* CTA */
-.cta{background:var(–primary);color:#fff;border:none;border-radius:14px;padding:17px;font-size:16px;font-weight:700;cursor:pointer;width:100%;display:none;align-items:center;justify-content:center;gap:8px;font-family:inherit;box-shadow:0 4px 14px rgba(255,107,53,.28);}
-.cta:active{background:var(–primary-dark);transform:scale(0.98);}
-.cta:disabled{opacity:.45;box-shadow:none;}
+.cta {
+background: #FF6B35; color: #fff; border: none;
+border-radius: 14px; padding: 17px;
+font-size: 16px; font-weight: 700; cursor: pointer;
+width: 100%; display: none;
+align-items: center; justify-content: center; gap: 8px;
+font-family: inherit;
+box-shadow: 0 4px 14px rgba(255,107,53,0.28);
+}
+.cta:disabled { opacity: 0.45; }
 
 /* LOADER */
-.loader{display:none;background:var(–white);border-radius:16px;padding:24px 18px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.05);}
-.loader-t{font-size:14px;font-weight:600;margin-bottom:14px;}
-.loader-track{background:var(–bg);border-radius:4px;height:4px;overflow:hidden;margin-bottom:10px;}
-.loader-bar{height:100%;background:linear-gradient(90deg,var(–primary),var(–yellow));animation:lb 1.4s ease-in-out infinite;}
-@keyframes lb{0%{width:0%;margin-left:0%}50%{width:65%;margin-left:17%}100%{width:0%;margin-left:100%}}
-.loader-s{font-size:12px;color:var(–text3);}
+.loader {
+display: none; background: #fff; border-radius: 16px;
+padding: 24px 18px; text-align: center;
+box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.loader-t { font-size: 14px; font-weight: 600; margin-bottom: 14px; }
+.loader-track { background: #F5F6F8; border-radius: 4px; height: 4px; overflow: hidden; margin-bottom: 10px; }
+.loader-bar { height: 100%; background: linear-gradient(90deg, #FF6B35, #F5A623); animation: lb 1.4s ease-in-out infinite; }
+@keyframes lb { 0%{width:0%;margin-left:0%} 50%{width:65%;margin-left:17%} 100%{width:0%;margin-left:100%} }
+.loader-s { font-size: 12px; color: #8B95A1; }
 
 /* ERROR */
-.err{background:var(–red-light);border-radius:10px;padding:12px 14px;font-size:13px;color:var(–red);font-weight:500;display:none;word-break:break-all;}
+.err {
+background: #FFF0F1; border-radius: 10px;
+padding: 12px 14px; font-size: 13px; color: #F04452;
+font-weight: 500; display: none; word-break: break-all;
+}
 
 /* RESULT */
-.res-wrap{display:none;flex-direction:column;gap:10px;}
-.res-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;}
-.res-lbl{font-size:14px;font-weight:700;}
-.redo{font-size:13px;color:var(–text3);background:none;border:none;cursor:pointer;font-family:inherit;}
+.res-wrap { display: none; flex-direction: column; gap: 10px; }
+.res-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
+.res-lbl { font-size: 14px; font-weight: 700; }
+.redo { font-size: 13px; color: #8B95A1; background: none; border: none; cursor: pointer; font-family: inherit; }
 
 /* CALORIE HERO */
-.cal-hero{background:linear-gradient(135deg,var(–primary),#FF8F60);border-radius:16px;padding:22px 20px;color:#fff;position:relative;overflow:hidden;box-shadow:0 6px 20px rgba(255,107,53,.28);}
-.cal-hero::before{content:’’;position:absolute;top:-30px;right:-30px;width:110px;height:110px;background:rgba(255,255,255,.1);border-radius:50%;}
-.cal-lbl{font-size:12px;font-weight:600;opacity:.8;margin-bottom:4px;}
-.cal-num{font-size:52px;font-weight:800;line-height:1;letter-spacing:-2px;}
-.cal-unit{font-size:13px;opacity:.75;margin-top:4px;}
+.cal-hero {
+background: linear-gradient(135deg, #FF6B35, #FF8F60);
+border-radius: 16px; padding: 22px 20px;
+color: #fff; position: relative; overflow: hidden;
+box-shadow: 0 6px 20px rgba(255,107,53,0.28);
+}
+.cal-hero::before {
+content: ‘’; position: absolute; top: -30px; right: -30px;
+width: 110px; height: 110px; background: rgba(255,255,255,0.1); border-radius: 50%;
+}
+.cal-lbl { font-size: 12px; font-weight: 600; opacity: 0.8; margin-bottom: 4px; }
+.cal-num { font-size: 52px; font-weight: 800; line-height: 1; letter-spacing: -2px; }
+.cal-unit { font-size: 13px; opacity: 0.75; margin-top: 4px; }
 
 /* MACROS */
-.macros{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.mac{background:var(–white);border-radius:14px;padding:14px 8px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.05);}
-.mac-ico{font-size:20px;margin-bottom:6px;}
-.mac-val{font-size:19px;font-weight:800;}
-.mac-nm{font-size:10px;color:var(–text3);margin-top:3px;}
+.macros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.mac { background: #fff; border-radius: 14px; padding: 14px 8px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+.mac-ico { font-size: 20px; margin-bottom: 6px; }
+.mac-val { font-size: 19px; font-weight: 800; }
+.mac-nm { font-size: 10px; color: #8B95A1; margin-top: 3px; }
 
 /* FOOD LIST */
-.food-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(–border);font-size:14px;}
-.food-row:last-child{border-bottom:none;}
-.food-nm{font-weight:500;}
-.food-k{font-size:13px;font-weight:700;color:var(–primary);}
-.memo{font-size:13px;color:var(–text2);line-height:1.7;}
+.food-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #E8ECF0; font-size: 14px; }
+.food-row:last-child { border-bottom: none; }
+.food-nm { font-weight: 500; }
+.food-k { font-size: 13px; font-weight: 700; color: #FF6B35; }
+.memo-txt { font-size: 13px; color: #4E5968; line-height: 1.7; }
 
 /* ADD BTN */
-.add-btn{background:var(–green-light);color:var(–green);border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:700;cursor:pointer;width:100%;font-family:inherit;}
-.add-btn:active{background:var(–green);color:#fff;}
-.add-btn.done{background:var(–green);color:#fff;}
+.add-btn {
+background: #E8FAF2; color: #00C471; border: none;
+border-radius: 14px; padding: 16px; font-size: 15px; font-weight: 700;
+cursor: pointer; width: 100%; font-family: inherit;
+}
+.add-btn.done { background: #00C471; color: #fff; }
 
-/* TODAY */
-.today-hero{background:linear-gradient(135deg,#191F28,#2C3546);border-radius:16px;padding:20px;color:#fff;box-shadow:0 4px 16px rgba(25,31,40,.15);}
-.t-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;}
-.t-kcal{font-size:36px;font-weight:800;letter-spacing:-1.5px;}
-.t-kcal span{color:var(–primary);}
-.t-goal{font-size:12px;color:rgba(255,255,255,.45);margin-top:3px;}
-.t-pct{font-size:26px;font-weight:800;color:var(–yellow);}
-.prog-bg{background:rgba(255,255,255,.12);border-radius:6px;height:6px;overflow:hidden;margin-bottom:14px;}
-.prog-fill{height:100%;border-radius:6px;background:linear-gradient(90deg,var(–primary),var(–yellow));transition:width .9s cubic-bezier(.4,0,.2,1);}
-.t-mac{display:grid;grid-template-columns:repeat(3,1fr);}
-.tm-item{text-align:center;}
-.tm-val{font-size:15px;font-weight:700;}
-.tm-nm{font-size:10px;color:rgba(255,255,255,.4);margin-top:2px;}
+/* TODAY HERO */
+.today-hero {
+background: linear-gradient(135deg, #191F28, #2C3546);
+border-radius: 16px; padding: 20px; color: #fff;
+box-shadow: 0 4px 16px rgba(25,31,40,0.15);
+}
+.t-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; }
+.t-kcal { font-size: 36px; font-weight: 800; letter-spacing: -1.5px; }
+.t-kcal span { color: #FF6B35; }
+.t-goal { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+.t-pct { font-size: 26px; font-weight: 800; color: #F5A623; }
+.prog-bg { background: rgba(255,255,255,0.12); border-radius: 6px; height: 6px; overflow: hidden; margin-bottom: 14px; }
+.prog-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, #FF6B35, #F5A623); transition: width 0.9s; }
+.t-mac { display: grid; grid-template-columns: repeat(3, 1fr); }
+.tm-item { text-align: center; }
+.tm-val { font-size: 15px; font-weight: 700; }
+.tm-nm { font-size: 10px; color: rgba(255,255,255,0.4); margin-top: 2px; }
 
 /* MEAL LIST */
-.meal-list{display:flex;flex-direction:column;gap:8px;}
-.hdr-row{display:flex;align-items:center;justify-content:space-between;}
-.hdr-t{font-size:15px;font-weight:700;}
-.txt-btn{background:none;border:none;font-size:13px;color:var(–text3);cursor:pointer;font-family:inherit;}
-.meal-item{background:var(–white);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
-.meal-thumb{width:52px;height:52px;border-radius:12px;object-fit:cover;flex-shrink:0;background:var(–bg);}
-.meal-info{flex:1;min-width:0;}
-.meal-badge{display:inline-block;background:var(–primary-light);color:var(–primary);font-size:10px;font-weight:700;border-radius:6px;padding:2px 7px;margin-bottom:4px;}
-.meal-foods{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.meal-time{font-size:11px;color:var(–text3);margin-top:2px;}
-.meal-right{flex-shrink:0;text-align:right;}
-.meal-k{font-size:16px;font-weight:800;}
-.meal-ku{font-size:11px;color:var(–text3);}
-.del-btn{background:var(–bg);border:none;border-radius:8px;width:28px;height:28px;font-size:13px;color:var(–text3);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
-.del-btn:active{background:var(–red-light);color:var(–red);}
+.meal-list { display: flex; flex-direction: column; gap: 8px; }
+.hdr-row { display: flex; align-items: center; justify-content: space-between; }
+.hdr-t { font-size: 15px; font-weight: 700; }
+.txt-btn { background: none; border: none; font-size: 13px; color: #8B95A1; cursor: pointer; font-family: inherit; }
+.meal-item { background: #fff; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+.meal-thumb { width: 52px; height: 52px; border-radius: 12px; object-fit: cover; flex-shrink: 0; background: #F5F6F8; }
+.meal-info { flex: 1; min-width: 0; }
+.meal-badge { display: inline-block; background: #FFF1EC; color: #FF6B35; font-size: 10px; font-weight: 700; border-radius: 6px; padding: 2px 7px; margin-bottom: 4px; }
+.meal-foods { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.meal-time { font-size: 11px; color: #8B95A1; margin-top: 2px; }
+.meal-right { flex-shrink: 0; text-align: right; }
+.meal-k { font-size: 16px; font-weight: 800; }
+.meal-ku { font-size: 11px; color: #8B95A1; }
+.del-btn { background: #F5F6F8; border: none; border-radius: 8px; width: 28px; height: 28px; font-size: 13px; color: #8B95A1; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
 
 /* EMPTY */
-.empty{background:var(–white);border-radius:16px;padding:40px 20px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.05);}
-.empty-ico{font-size:40px;margin-bottom:12px;}
-.empty-txt{font-size:14px;color:var(–text3);line-height:1.6;font-weight:500;}
+.empty { background: #fff; border-radius: 16px; padding: 40px 20px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+.empty-ico { font-size: 40px; margin-bottom: 12px; }
+.empty-txt { font-size: 14px; color: #8B95A1; line-height: 1.6; font-weight: 500; }
 
 /* REVIEW */
-.rv-btn{background:var(–text);color:#fff;border:none;border-radius:14px;padding:17px;font-size:15px;font-weight:700;cursor:pointer;width:100%;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px;}
-.rv-btn:active{opacity:.85;transform:scale(0.98);}
-.rv-btn:disabled{opacity:.3;}
-.rv-card{background:var(–white);border-radius:16px;padding:20px;display:none;flex-direction:column;gap:16px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
-.rv-card.show{display:flex;}
-.grade-row{display:flex;align-items:center;gap:14px;}
-.grade{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:800;flex-shrink:0;}
-.g-good{background:var(–green-light);color:var(–green);}
-.g-ok{background:var(–yellow-light);color:var(–yellow);}
-.g-bad{background:var(–red-light);color:var(–red);}
-.grade-title{font-size:17px;font-weight:800;}
-.grade-sub{font-size:12px;color:var(–text3);margin-top:2px;}
-.divider{height:1px;background:var(–border);}
-.rv-sec{display:flex;flex-direction:column;gap:8px;}
-.rv-body{font-size:14px;color:var(–text2);line-height:1.75;}
-.tag-wrap{display:flex;flex-wrap:wrap;gap:6px;}
-.tag{font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;}
-.tag-g{background:var(–green-light);color:var(–green);}
-.tag-w{background:var(–yellow-light);color:var(–yellow);}
+.rv-btn { background: #191F28; color: #fff; border: none; border-radius: 14px; padding: 17px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.rv-btn:disabled { opacity: 0.3; }
+.rv-card { background: #fff; border-radius: 16px; padding: 20px; display: none; flex-direction: column; gap: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+.rv-card.show { display: flex; }
+.grade-row { display: flex; align-items: center; gap: 14px; }
+.grade { width: 60px; height: 60px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; flex-shrink: 0; }
+.g-good { background: #E8FAF2; color: #00C471; }
+.g-ok { background: #FFF8EC; color: #F5A623; }
+.g-bad { background: #FFF0F1; color: #F04452; }
+.grade-title { font-size: 17px; font-weight: 800; }
+.grade-sub { font-size: 12px; color: #8B95A1; margin-top: 2px; }
+.divider { height: 1px; background: #E8ECF0; }
+.rv-sec { display: flex; flex-direction: column; gap: 8px; }
+.rv-body { font-size: 14px; color: #4E5968; line-height: 1.75; }
+.tag-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 20px; }
+.tag-g { background: #E8FAF2; color: #00C471; }
+.tag-w { background: #FFF8EC; color: #F5A623; }
 
 /* SETTINGS */
-.set-card{background:var(–white);border-radius:16px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05);display:flex;flex-direction:column;gap:10px;}
-.set-lbl{font-size:15px;font-weight:700;}
-.set-desc{font-size:12px;color:var(–text3);line-height:1.5;}
-.danger{background:var(–red-light);color:var(–red);border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;width:100%;font-family:inherit;}
-.danger:active{background:var(–red);color:#fff;}
-.ver{text-align:center;font-size:12px;color:var(–text3);padding:4px 0;}
+.set-card { background: #fff; border-radius: 16px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); display: flex; flex-direction: column; gap: 10px; }
+.set-lbl { font-size: 15px; font-weight: 700; }
+.set-desc { font-size: 12px; color: #8B95A1; line-height: 1.5; }
+.danger { background: #FFF0F1; color: #F04452; border: none; border-radius: 12px; padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%; font-family: inherit; }
+.ver { text-align: center; font-size: 12px; color: #8B95A1; padding: 4px 0; }
 </style>
 
 </head>
@@ -243,7 +335,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto S
   </div>
 
   <div id="upSection">
-    <div class="sec" style="margin-bottom:8px;">사진 선택</div>
+    <div class="sec" style="margin-bottom:8px">사진 선택</div>
     <div class="up-grid">
       <div class="up-btn">
         <input type="file" accept="image/*" capture="environment" onchange="onFile(event)">
@@ -266,7 +358,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto S
     </div>
   </div>
 
-<button class="cta" id="scanBtn" onclick="doAnalyze()">🔍  칼로리 분석하기</button>
+<button class="cta" id="scanBtn" onclick="doAnalyze()">🔍 칼로리 분석하기</button>
 
   <div class="loader" id="loader">
     <div class="loader-t">AI가 분석 중이에요</div>
@@ -283,13 +375,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto S
     </div>
     <div class="cal-hero">
       <div class="cal-lbl">이 식사 칼로리</div>
-      <div class="cal-num" id="rKcal">—</div>
+      <div class="cal-num" id="rKcal">0</div>
       <div class="cal-unit">kcal 추정</div>
     </div>
     <div class="macros">
-      <div class="mac"><div class="mac-ico">🌾</div><div class="mac-val" id="rCarbs">—</div><div class="mac-nm">탄수화물 g</div></div>
-      <div class="mac"><div class="mac-ico">🥩</div><div class="mac-val" id="rProt">—</div><div class="mac-nm">단백질 g</div></div>
-      <div class="mac"><div class="mac-ico">🧈</div><div class="mac-val" id="rFat">—</div><div class="mac-nm">지방 g</div></div>
+      <div class="mac"><div class="mac-ico">🌾</div><div class="mac-val" id="rCarbs">0</div><div class="mac-nm">탄수화물 g</div></div>
+      <div class="mac"><div class="mac-ico">🥩</div><div class="mac-val" id="rProt">0</div><div class="mac-nm">단백질 g</div></div>
+      <div class="mac"><div class="mac-ico">🧈</div><div class="mac-val" id="rFat">0</div><div class="mac-nm">지방 g</div></div>
     </div>
     <div class="card">
       <div class="sec">감지된 음식</div>
@@ -297,7 +389,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto S
     </div>
     <div class="card">
       <div class="sec">AI 메모</div>
-      <div class="memo" id="memoTxt"></div>
+      <div class="memo-txt" id="memoTxt"></div>
     </div>
     <button class="add-btn" id="addBtn" onclick="addLog()">+ 오늘 식단에 추가하기</button>
   </div>
@@ -325,9 +417,12 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto S
     <span class="hdr-t">오늘 먹은 것</span>
     <button class="txt-btn" onclick="clearLog()">전체 삭제</button>
   </div>
-  <div class="empty" id="emptyBox"><div class="empty-ico">🍽️</div><div class="empty-txt">아직 기록이 없어요<br>스캔 탭에서 음식을 분석해보세요</div></div>
+  <div class="empty" id="emptyBox">
+    <div class="empty-ico">🍽️</div>
+    <div class="empty-txt">아직 기록이 없어요<br>스캔 탭에서 음식을 분석해보세요</div>
+  </div>
   <div class="meal-list" id="mealList"></div>
-  <button class="rv-btn" id="rvBtn" onclick="doReview()" disabled>🤖&nbsp; 오늘 식단 AI 총평 받기</button>
+  <button class="rv-btn" id="rvBtn" onclick="doReview()" disabled>🤖 오늘 식단 AI 총평 받기</button>
   <div class="loader" id="rvLoader">
     <div class="loader-t">오늘 식단을 분석하는 중이에요</div>
     <div class="loader-track"><div class="loader-bar"></div></div>
@@ -335,7 +430,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto S
   </div>
   <div class="rv-card" id="rvCard">
     <div class="grade-row">
-      <div class="grade" id="rvGrade">B</div>
+      <div class="grade g-ok" id="rvGrade">B</div>
       <div><div class="grade-title" id="rvTitle">—</div><div class="grade-sub">오늘의 식단 점수</div></div>
     </div>
     <div class="divider"></div>
@@ -369,8 +464,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto S
     </div>
     <div class="msg" id="keyMsg2"></div>
   </div>
-  <button class="danger" onclick="resetAll()">🗑️&nbsp; 전체 데이터 초기화</button>
-  <div class="ver">칼로리 스캔 v3.0</div>
+  <button class="danger" onclick="resetAll()">전체 데이터 초기화</button>
+  <div class="ver">칼로리 스캔 v3.1</div>
 </div>
 </div>
 
@@ -382,119 +477,148 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Noto S
 
 </div>
 <script>
-var imgB64=null,lastRes=null,mealLog=[],mealType='아침',goal=2000;
-var TITLES={scan:'칼로리 스캔 🍽️',today:'오늘 식단 📋',settings:'설정 ⚙️'};
+var imgB64 = null;
+var lastRes = null;
+var mealLog = [];
+var mealType = '아침';
+var goal = 2000;
 
-window.onload=function(){
-var k=localStorage.getItem(‘ck’);
-if(k){
-document.getElementById(‘apiKey’).value=k;
-document.getElementById(‘apiKey2’).value=k;
-markOk(‘keyBtn’); markOk(‘keyBtn2’);
-setMsg(‘keyMsg’,‘✓ API 키 저장됨’,‘var(–green)’);
+window.onload = function() {
+var k = localStorage.getItem(‘ck’);
+if (k) {
+document.getElementById(‘apiKey’).value = k;
+document.getElementById(‘apiKey2’).value = k;
+setOk(‘keyBtn’);
+setOk(‘keyBtn2’);
+setMsg(‘keyMsg’, ‘✓ API 키 저장됨’, ‘#00C471’);
 }
-var g=localStorage.getItem(‘cg’);
-if(g){goal=parseInt(g);document.getElementById(‘goalInput’).value=g;document.getElementById(‘goalLbl’).textContent=parseInt(g).toLocaleString();}
-var log=localStorage.getItem(‘cl_’+dk());
-if(log)mealLog=JSON.parse(log);
+var g = localStorage.getItem(‘cg’);
+if (g) {
+goal = parseInt(g);
+document.getElementById(‘goalInput’).value = g;
+document.getElementById(‘goalLbl’).textContent = parseInt(g).toLocaleString();
+}
+var log = localStorage.getItem(‘cl_’ + dk());
+if (log) mealLog = JSON.parse(log);
 };
 
-function dk(){return new Date().toISOString().slice(0,10);}
-function markOk(id){var b=document.getElementById(id);if(b){b.textContent=‘✓ 저장됨’;b.classList.add(‘ok’);}}
-function markReset(id){var b=document.getElementById(id);if(b){b.textContent=‘저장’;b.classList.remove(‘ok’);}}
-function setMsg(id,txt,color){var e=document.getElementById(id);if(e){e.textContent=txt;e.style.color=color;}}
-function showErr(m){var e=document.getElementById(‘errBox’);e.textContent=’⚠ ’+m;e.style.display=‘block’;}
-function hideErr(){document.getElementById(‘errBox’).style.display=‘none’;}
+function dk() { return new Date().toISOString().slice(0, 10); }
 
-function go(tab){
-document.querySelectorAll(’.scr’).forEach(function(s){s.classList.remove(‘on’);});
-document.querySelectorAll(’.nb’).forEach(function(b){b.classList.remove(‘on’);});
-document.getElementById(‘s-’+tab).classList.add(‘on’);
-document.getElementById(‘nb-’+tab).classList.add(‘on’);
-document.getElementById(‘topTitle’).textContent=TITLES[tab];
-document.querySelector(’.gear-btn’).style.visibility=(tab===‘settings’?‘hidden’:‘visible’);
-if(tab===‘today’)renderLog();
+function setOk(id) {
+var b = document.getElementById(id);
+if (b) { b.textContent = ‘✓ 저장됨’; b.classList.add(‘ok’); }
+}
+function setReset(id) {
+var b = document.getElementById(id);
+if (b) { b.textContent = ‘저장’; b.classList.remove(‘ok’); }
+}
+function setMsg(id, txt, color) {
+var e = document.getElementById(id);
+if (e) { e.textContent = txt; e.style.color = color; }
+}
+function showErr(m) {
+var e = document.getElementById(‘errBox’);
+e.textContent = ’⚠ ’ + m;
+e.style.display = ‘block’;
+}
+function hideErr() { document.getElementById(‘errBox’).style.display = ‘none’; }
+
+function go(tab) {
+document.querySelectorAll(’.scr’).forEach(function(s) { s.classList.remove(‘on’); });
+document.querySelectorAll(’.nb’).forEach(function(b) { b.classList.remove(‘on’); });
+document.getElementById(‘s-’ + tab).classList.add(‘on’);
+document.getElementById(‘nb-’ + tab).classList.add(‘on’);
+var titles = { scan: ‘칼로리 스캔 🍽️’, today: ‘오늘 식단 📋’, settings: ‘설정 ⚙️’ };
+document.getElementById(‘topTitle’).textContent = titles[tab];
+var gear = document.querySelector(’.gear-btn’);
+gear.style.visibility = (tab === ‘settings’) ? ‘hidden’ : ‘visible’;
+if (tab === ‘today’) renderLog();
 }
 
-function saveKey(){
-var v=document.getElementById(‘apiKey’).value.trim();
-if(!v){setMsg(‘keyMsg’,‘키를 입력해주세요’,‘var(–red)’);return;}
-localStorage.setItem(‘ck’,v);
-document.getElementById(‘apiKey2’).value=v;
-markOk(‘keyBtn’);markOk(‘keyBtn2’);
-setMsg(‘keyMsg’,‘✓ 저장됐어요!’,‘var(–green)’);
-setMsg(‘keyMsg2’,‘✓ 저장됐어요!’,‘var(–green)’);
+function saveKey() {
+var v = document.getElementById(‘apiKey’).value.trim();
+if (!v) { setMsg(‘keyMsg’, ‘키를 입력해주세요’, ‘#F04452’); return; }
+localStorage.setItem(‘ck’, v);
+document.getElementById(‘apiKey2’).value = v;
+setOk(‘keyBtn’); setOk(‘keyBtn2’);
+setMsg(‘keyMsg’, ‘✓ 저장됐어요!’, ‘#00C471’);
+setMsg(‘keyMsg2’, ‘✓ 저장됐어요!’, ‘#00C471’);
 }
-function saveKey2(){
-var v=document.getElementById(‘apiKey2’).value.trim();
-if(!v){setMsg(‘keyMsg2’,‘키를 입력해주세요’,‘var(–red)’);return;}
-localStorage.setItem(‘ck’,v);
-document.getElementById(‘apiKey’).value=v;
-markOk(‘keyBtn’);markOk(‘keyBtn2’);
-setMsg(‘keyMsg2’,‘✓ 저장됐어요!’,‘var(–green)’);
-setMsg(‘keyMsg’,‘✓ 저장됐어요!’,‘var(–green)’);
+function saveKey2() {
+var v = document.getElementById(‘apiKey2’).value.trim();
+if (!v) { setMsg(‘keyMsg2’, ‘키를 입력해주세요’, ‘#F04452’); return; }
+localStorage.setItem(‘ck’, v);
+document.getElementById(‘apiKey’).value = v;
+setOk(‘keyBtn’); setOk(‘keyBtn2’);
+setMsg(‘keyMsg2’, ‘✓ 저장됐어요!’, ‘#00C471’);
+setMsg(‘keyMsg’, ‘✓ 저장됐어요!’, ‘#00C471’);
 }
-function saveGoal(){
-var v=parseInt(document.getElementById(‘goalInput’).value);
-if(!v||v<500||v>9999){setMsg(‘goalMsg’,‘500~9999 사이로 입력해주세요’,‘var(–red)’);return;}
-goal=v;localStorage.setItem(‘cg’,v);
-document.getElementById(‘goalLbl’).textContent=v.toLocaleString();
-markOk(‘goalBtn’);
-setMsg(‘goalMsg’,‘✓ 저장됐어요!’,‘var(–green)’);
+function saveGoal() {
+var v = parseInt(document.getElementById(‘goalInput’).value);
+if (!v || v < 500 || v > 9999) { setMsg(‘goalMsg’, ‘500~9999 사이로 입력해주세요’, ‘#F04452’); return; }
+goal = v;
+localStorage.setItem(‘cg’, v);
+document.getElementById(‘goalLbl’).textContent = v.toLocaleString();
+setOk(‘goalBtn’);
+setMsg(‘goalMsg’, ‘✓ 저장됐어요!’, ‘#00C471’);
 renderLog();
 }
 
-function pickMeal(btn,lbl){
-document.querySelectorAll(’.chip’).forEach(function(b){b.classList.remove(‘on’);});
-btn.classList.add(‘on’);mealType=lbl;
+function pickMeal(btn, lbl) {
+document.querySelectorAll(’.chip’).forEach(function(b) { b.classList.remove(‘on’); });
+btn.classList.add(‘on’);
+mealType = lbl;
 }
 
-function onFile(e){
-var f=e.target.files[0];if(!f)return;
-var r=new FileReader();
-r.onload=function(ev){
-imgB64=ev.target.result.split(’,’)[1];
-document.getElementById(‘prevImg’).src=ev.target.result;
-document.getElementById(‘prevBox’).style.display=‘block’;
-document.getElementById(‘upSection’).style.display=‘none’;
-document.getElementById(‘scanBtn’).style.display=‘flex’;
-document.getElementById(‘resWrap’).style.display=‘none’;
+function onFile(e) {
+var f = e.target.files[0];
+if (!f) return;
+var r = new FileReader();
+r.onload = function(ev) {
+imgB64 = ev.target.result.split(’,’)[1];
+document.getElementById(‘prevImg’).src = ev.target.result;
+document.getElementById(‘prevBox’).style.display = ‘block’;
+document.getElementById(‘upSection’).style.display = ‘none’;
+document.getElementById(‘scanBtn’).style.display = ‘flex’;
+document.getElementById(‘resWrap’).style.display = ‘none’;
 hideErr();
 };
 r.readAsDataURL(f);
 }
 
-async function doAnalyze(){
-var k=localStorage.getItem(‘ck’);
-if(!k){showErr(‘API 키를 먼저 저장해주세요!’);return;}
-if(!imgB64){showErr(‘이미지를 먼저 선택해주세요!’);return;}
+async function doAnalyze() {
+var k = localStorage.getItem(‘ck’);
+if (!k) { showErr(‘API 키를 먼저 저장해주세요!’); return; }
+if (!imgB64) { showErr(‘이미지를 먼저 선택해주세요!’); return; }
 
-document.getElementById(‘scanBtn’).disabled=true;
-document.getElementById(‘loader’).style.display=‘block’;
-document.getElementById(‘resWrap’).style.display=‘none’;
+document.getElementById(‘scanBtn’).disabled = true;
+document.getElementById(‘loader’).style.display = ‘block’;
+document.getElementById(‘resWrap’).style.display = ‘none’;
 hideErr();
 
-var steps=[‘이미지 처리 중’,‘AI 분석 중’,‘영양 계산 중’,‘결과 정리 중’];
-var si=0;
-var sv=setInterval(function(){document.getElementById(‘loaderStep’).textContent=steps[si++%steps.length];},1100);
+var steps = [‘이미지 처리 중’, ‘AI 분석 중’, ‘영양 계산 중’, ‘결과 정리 중’];
+var si = 0;
+var sv = setInterval(function() {
+document.getElementById(‘loaderStep’).textContent = steps[si++ % steps.length];
+}, 1100);
 
-try{
-var res=await fetch(‘https://api.anthropic.com/v1/messages’,{
-method:‘POST’,
-headers:{
-‘Content-Type’:‘application/json’,
-‘x-api-key’:k,
-‘anthropic-version’:‘2023-06-01’,
-‘anthropic-dangerous-direct-browser-access’:‘true’
+try {
+var res = await fetch(‘https://api.anthropic.com/v1/messages’, {
+method: ‘POST’,
+headers: {
+‘Content-Type’: ‘application/json’,
+‘x-api-key’: k,
+‘anthropic-version’: ‘2023-06-01’,
+‘anthropic-dangerous-direct-browser-access’: ‘true’
 },
-body:JSON.stringify({
-model:‘claude-opus-4-5’,
-max_tokens:1024,
-messages:[{
-role:‘user’,
-content:[
-{type:‘image’,source:{type:‘base64’,media_type:‘image/jpeg’,data:imgB64}},
-{type:‘text’,text:‘이 음식 사진의 칼로리를 분석하고 다음 JSON 형식으로 응답해줘. 코드블록 없이 JSON만:\n{“total_kcal”:숫자,“carbs_g”:숫자,“protein_g”:숫자,“fat_g”:숫자,“foods”:[{“name”:“음식이름”,“kcal”:숫자}],“memo”:“한줄설명”}’}
+body: JSON.stringify({
+model: ‘claude-opus-4-5’,
+max_tokens: 1024,
+messages: [{
+role: ‘user’,
+content: [
+{ type: ‘image’, source: { type: ‘base64’, media_type: ‘image/jpeg’, data: imgB64 } },
+{ type: ‘text’, text: ‘이 음식 사진의 칼로리를 분석해줘. 반드시 아래 형식의 JSON만 반환해. 다른 말은 하지마.\n{“total_kcal”:0,“carbs_g”:0,“protein_g”:0,“fat_g”:0,“foods”:[{“name”:“음식명”,“kcal”:0}],“memo”:“메모”}’ }
 ]
 }]
 })
@@ -502,182 +626,190 @@ content:[
 
 ```
 clearInterval(sv);
+var data = await res.json();
 
-var body=await res.json();
-
-if(!res.ok){
-  showErr((body.error&&body.error.message)||('API 오류: '+res.status));
+if (!res.ok) {
+  showErr((data.error && data.error.message) ? data.error.message : 'API 오류 ' + res.status);
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('scanBtn').disabled = false;
   return;
 }
 
-// 응답에서 텍스트 추출
-var txt='';
-if(body.content&&body.content.length>0){
-  for(var i=0;i<body.content.length;i++){
-    if(body.content[i].type==='text'){txt+=body.content[i].text;}
+var txt = '';
+if (data.content) {
+  for (var i = 0; i < data.content.length; i++) {
+    if (data.content[i].type === 'text') txt += data.content[i].text;
   }
 }
 
-// JSON 파싱 - 중괄호 찾아서 파싱
-var p=null;
-var start=txt.indexOf('{');
-var end=txt.lastIndexOf('}');
-if(start>=0&&end>start){
-  try{p=JSON.parse(txt.slice(start,end+1));}catch(e){}
+var p = null;
+var s = txt.indexOf('{');
+var e2 = txt.lastIndexOf('}');
+if (s >= 0 && e2 > s) {
+  try { p = JSON.parse(txt.slice(s, e2 + 1)); } catch(ex) {}
 }
 
-if(!p){
+if (!p) {
   showErr('분석 실패. 다시 시도해주세요.');
+  document.getElementById('loader').style.display = 'none';
+  document.getElementById('scanBtn').disabled = false;
   return;
 }
 
-lastRes=Object.assign({},p,{img:document.getElementById('prevImg').src,label:mealType});
+lastRes = { total_kcal: p.total_kcal || 0, carbs_g: p.carbs_g || 0, protein_g: p.protein_g || 0, fat_g: p.fat_g || 0, foods: p.foods || [], memo: p.memo || '', img: document.getElementById('prevImg').src, label: mealType };
 showResult(p);
 ```
 
-}catch(err){
+} catch(err) {
 clearInterval(sv);
-showErr(err.message||‘네트워크 오류. 다시 시도해주세요.’);
+showErr(err.message || ‘네트워크 오류’);
 }
 
-document.getElementById(‘loader’).style.display=‘none’;
-document.getElementById(‘scanBtn’).disabled=false;
+document.getElementById(‘loader’).style.display = ‘none’;
+document.getElementById(‘scanBtn’).disabled = false;
 }
 
-function showResult(d){
-document.getElementById(‘rCarbs’).textContent=d.carbs_g!=null?d.carbs_g:’—’;
-document.getElementById(‘rProt’).textContent=d.protein_g!=null?d.protein_g:’—’;
-document.getElementById(‘rFat’).textContent=d.fat_g!=null?d.fat_g:’—’;
-document.getElementById(‘memoTxt’).textContent=d.memo||’’;
-var fl=document.getElementById(‘foodList’);
-fl.innerHTML=’’;
-if(d.foods&&d.foods.length){
-d.foods.forEach(function(f){
-fl.innerHTML+=’<div class="food-row"><span class="food-nm">’+f.name+’</span><span class="food-k">’+f.kcal+’ kcal</span></div>’;
+function showResult(d) {
+document.getElementById(‘rCarbs’).textContent = d.carbs_g || 0;
+document.getElementById(‘rProt’).textContent = d.protein_g || 0;
+document.getElementById(‘rFat’).textContent = d.fat_g || 0;
+document.getElementById(‘memoTxt’).textContent = d.memo || ‘’;
+var fl = document.getElementById(‘foodList’);
+fl.innerHTML = ‘’;
+if (d.foods && d.foods.length) {
+d.foods.forEach(function(f) {
+fl.innerHTML += ‘<div class="food-row"><span class="food-nm">’ + f.name + ‘</span><span class="food-k">’ + f.kcal + ’ kcal</span></div>’;
 });
-}else{
-fl.innerHTML=’<div style="color:var(--text3);font-size:13px;padding:8px 0">감지된 음식 없음</div>’;
+} else {
+fl.innerHTML = ‘<div style="color:#8B95A1;font-size:13px;padding:8px 0">감지된 음식 없음</div>’;
 }
-document.getElementById(‘resWrap’).style.display=‘flex’;
-var t=parseInt(d.total_kcal)||0;
-document.getElementById(‘rKcal’).textContent=t||’—’;
-if(t>0){
-var c=0,step=Math.ceil(t/40);
-var iv=setInterval(function(){c=Math.min(c+step,t);document.getElementById(‘rKcal’).textContent=c;if(c>=t)clearInterval(iv);},22);
+document.getElementById(‘resWrap’).style.display = ‘flex’;
+var t = parseInt(d.total_kcal) || 0;
+document.getElementById(‘rKcal’).textContent = t;
+if (t > 0) {
+var c = 0, step = Math.ceil(t / 40);
+var iv = setInterval(function() {
+c = Math.min(c + step, t);
+document.getElementById(‘rKcal’).textContent = c;
+if (c >= t) clearInterval(iv);
+}, 22);
 }
-}
-
-function addLog(){
-if(!lastRes)return;
-var time=new Date().toLocaleTimeString(‘ko-KR’,{hour:‘2-digit’,minute:‘2-digit’});
-mealLog.push({id:Date.now(),label:lastRes.label,total_kcal:lastRes.total_kcal||0,carbs_g:lastRes.carbs_g||0,protein_g:lastRes.protein_g||0,fat_g:lastRes.fat_g||0,foods:lastRes.foods||[],img:lastRes.img,time:time});
-localStorage.setItem(‘cl_’+dk(),JSON.stringify(mealLog));
-var btn=document.getElementById(‘addBtn’);
-btn.textContent=‘✓ 추가됐어요!’;btn.classList.add(‘done’);btn.disabled=true;
-setTimeout(function(){resetScan();},900);
 }
 
-function resetScan(){
-imgB64=null;lastRes=null;
-document.getElementById(‘prevBox’).style.display=‘none’;
-document.getElementById(‘upSection’).style.display=‘block’;
-document.getElementById(‘scanBtn’).style.display=‘none’;
-document.getElementById(‘resWrap’).style.display=‘none’;
+function addLog() {
+if (!lastRes) return;
+var time = new Date().toLocaleTimeString(‘ko-KR’, { hour: ‘2-digit’, minute: ‘2-digit’ });
+mealLog.push({ id: Date.now(), label: lastRes.label, total_kcal: lastRes.total_kcal, carbs_g: lastRes.carbs_g, protein_g: lastRes.protein_g, fat_g: lastRes.fat_g, foods: lastRes.foods, img: lastRes.img, time: time });
+localStorage.setItem(‘cl_’ + dk(), JSON.stringify(mealLog));
+var btn = document.getElementById(‘addBtn’);
+btn.textContent = ‘✓ 추가됐어요!’;
+btn.classList.add(‘done’);
+btn.disabled = true;
+setTimeout(function() { resetScan(); }, 900);
+}
+
+function resetScan() {
+imgB64 = null; lastRes = null;
+document.getElementById(‘prevBox’).style.display = ‘none’;
+document.getElementById(‘upSection’).style.display = ‘block’;
+document.getElementById(‘scanBtn’).style.display = ‘none’;
+document.getElementById(‘resWrap’).style.display = ‘none’;
 hideErr();
-var btn=document.getElementById(‘addBtn’);
-btn.textContent=’+ 오늘 식단에 추가하기’;btn.classList.remove(‘done’);btn.disabled=false;
+var btn = document.getElementById(‘addBtn’);
+btn.textContent = ‘+ 오늘 식단에 추가하기’;
+btn.classList.remove(‘done’);
+btn.disabled = false;
 }
 
-function renderLog(){
-var t=mealLog.reduce(function(a,m){return a+(m.total_kcal||0);},0);
-var c=mealLog.reduce(function(a,m){return a+(m.carbs_g||0);},0);
-var p=mealLog.reduce(function(a,m){return a+(m.protein_g||0);},0);
-var f=mealLog.reduce(function(a,m){return a+(m.fat_g||0);},0);
-document.getElementById(‘tKcal’).textContent=t.toLocaleString();
-document.getElementById(‘tCarbs’).textContent=Math.round(c)+‘g’;
-document.getElementById(‘tProt’).textContent=Math.round(p)+‘g’;
-document.getElementById(‘tFat’).textContent=Math.round(f)+‘g’;
-var pct=Math.min(Math.round(t/goal*100),999);
-document.getElementById(‘tPct’).textContent=pct+’%’;
-document.getElementById(‘progFill’).style.width=Math.min(pct,100)+’%’;
-document.getElementById(‘goalLbl’).textContent=goal.toLocaleString();
-var empty=document.getElementById(‘emptyBox’);
-var list=document.getElementById(‘mealList’);
-var rb=document.getElementById(‘rvBtn’);
-if(!mealLog.length){empty.style.display=‘block’;list.innerHTML=’’;rb.disabled=true;return;}
-empty.style.display=‘none’;rb.disabled=false;
-list.innerHTML=mealLog.map(function(m){
-return ‘<div class="meal-item"><img class="meal-thumb" src="'+(m.img||'')+'" onerror="this.style.background=\'var(--bg)\'" alt=""><div class="meal-info"><span class="meal-badge">’+m.label+’</span><div class="meal-foods">’+(m.foods.map(function(f){return f.name;}).join(’, ‘)||‘음식 정보 없음’)+’</div><div class="meal-time">’+m.time+’</div></div><div class="meal-right"><div class="meal-k">’+m.total_kcal+’</div><div class="meal-ku">kcal</div></div><button class="del-btn" onclick="delItem('+m.id+')">✕</button></div>’;
+function renderLog() {
+var t = 0, c = 0, p = 0, f = 0;
+mealLog.forEach(function(m) { t += m.total_kcal || 0; c += m.carbs_g || 0; p += m.protein_g || 0; f += m.fat_g || 0; });
+document.getElementById(‘tKcal’).textContent = t.toLocaleString();
+document.getElementById(‘tCarbs’).textContent = Math.round(c) + ‘g’;
+document.getElementById(‘tProt’).textContent = Math.round(p) + ‘g’;
+document.getElementById(‘tFat’).textContent = Math.round(f) + ‘g’;
+var pct = Math.min(Math.round(t / goal * 100), 999);
+document.getElementById(‘tPct’).textContent = pct + ‘%’;
+document.getElementById(‘progFill’).style.width = Math.min(pct, 100) + ‘%’;
+document.getElementById(‘goalLbl’).textContent = goal.toLocaleString();
+var empty = document.getElementById(‘emptyBox’);
+var list = document.getElementById(‘mealList’);
+var rb = document.getElementById(‘rvBtn’);
+if (!mealLog.length) { empty.style.display = ‘block’; list.innerHTML = ‘’; rb.disabled = true; return; }
+empty.style.display = ‘none’; rb.disabled = false;
+list.innerHTML = mealLog.map(function(m) {
+var foods = m.foods ? m.foods.map(function(f) { return f.name; }).join(’, ‘) : ‘음식 정보 없음’;
+return ‘<div class="meal-item"><img class="meal-thumb" src="' + (m.img || '') + '" onerror="this.style.background=\'#F5F6F8\'" alt=""><div class="meal-info"><span class="meal-badge">’ + m.label + ‘</span><div class="meal-foods">’ + foods + ‘</div><div class="meal-time">’ + m.time + ‘</div></div><div class="meal-right"><div class="meal-k">’ + m.total_kcal + ‘</div><div class="meal-ku">kcal</div></div><button class="del-btn" onclick="delItem(' + m.id + ')">✕</button></div>’;
 }).join(’’);
 }
 
-function delItem(id){
-mealLog=mealLog.filter(function(m){return m.id!==id;});
-localStorage.setItem(‘cl_’+dk(),JSON.stringify(mealLog));
+function delItem(id) {
+mealLog = mealLog.filter(function(m) { return m.id !== id; });
+localStorage.setItem(‘cl_’ + dk(), JSON.stringify(mealLog));
 document.getElementById(‘rvCard’).classList.remove(‘show’);
 renderLog();
 }
 
-function clearLog(){
-if(!confirm(‘오늘 기록을 모두 삭제할까요?’))return;
-mealLog=[];localStorage.removeItem(‘cl_’+dk());
+function clearLog() {
+if (!confirm(‘오늘 기록을 모두 삭제할까요?’)) return;
+mealLog = [];
+localStorage.removeItem(‘cl_’ + dk());
 document.getElementById(‘rvCard’).classList.remove(‘show’);
 renderLog();
 }
 
-async function doReview(){
-var k=localStorage.getItem(‘ck’);
-if(!k){alert(‘API 키를 설정에서 먼저 저장해주세요!’);return;}
-if(!mealLog.length)return;
-document.getElementById(‘rvBtn’).disabled=true;
-document.getElementById(‘rvLoader’).style.display=‘block’;
+async function doReview() {
+var k = localStorage.getItem(‘ck’);
+if (!k) { alert(‘API 키를 설정에서 먼저 저장해주세요!’); return; }
+if (!mealLog.length) return;
+document.getElementById(‘rvBtn’).disabled = true;
+document.getElementById(‘rvLoader’).style.display = ‘block’;
 document.getElementById(‘rvCard’).classList.remove(‘show’);
-var steps=[‘영양 균형 분석 중’,‘칼로리 패턴 확인 중’,‘총평 작성 중’,‘추천 생성 중’];
-var si=0;
-var sv=setInterval(function(){document.getElementById(‘rvStep’).textContent=steps[si++%steps.length];},1100);
-var t=mealLog.reduce(function(a,m){return a+(m.total_kcal||0);},0);
-var c=mealLog.reduce(function(a,m){return a+(m.carbs_g||0);},0);
-var p=mealLog.reduce(function(a,m){return a+(m.protein_g||0);},0);
-var f=mealLog.reduce(function(a,m){return a+(m.fat_g||0);},0);
-var log=mealLog.map(function(m){return ‘[’+m.label+’ ‘+m.time+’] ‘+m.foods.map(function(x){return x.name;}).join(’, ‘)+’ (’+m.total_kcal+‘kcal)’;}).join(’\n’);
-var prompt=‘오늘 식단:\n’+log+’\n총:’+t+‘kcal 탄’+Math.round(c)+‘g 단’+Math.round(p)+‘g 지’+Math.round(f)+‘g 목표:’+goal+‘kcal\n다음 JSON 형식으로만 답해줘:\n{“score”:숫자,“grade”:“A+/A/B+/B/C+/C/D”,“label”:“한마디”,“summary”:“총평2-3문장”,“good_points”:[“잘한점”],“bad_points”:[“개선점”],“tomorrow_tip”:“내일추천”}’;
-try{
-var res=await fetch(‘https://api.anthropic.com/v1/messages’,{
-method:‘POST’,
-headers:{‘Content-Type’:‘application/json’,‘x-api-key’:k,‘anthropic-version’:‘2023-06-01’,‘anthropic-dangerous-direct-browser-access’:‘true’},
-body:JSON.stringify({model:‘claude-opus-4-5’,max_tokens:1000,messages:[{role:‘user’,content:prompt}]})
+var steps = [‘영양 균형 분석 중’, ‘칼로리 패턴 확인 중’, ‘총평 작성 중’, ‘추천 생성 중’];
+var si = 0;
+var sv = setInterval(function() { document.getElementById(‘rvStep’).textContent = steps[si++ % steps.length]; }, 1100);
+var t = 0, c = 0, p = 0, f = 0;
+mealLog.forEach(function(m) { t += m.total_kcal || 0; c += m.carbs_g || 0; p += m.protein_g || 0; f += m.fat_g || 0; });
+var log = mealLog.map(function(m) { return ‘[’ + m.label + ’ ’ + m.time + ‘] ’ + (m.foods ? m.foods.map(function(x) { return x.name; }).join(’, ‘) : ‘’) + ’ (’ + m.total_kcal + ‘kcal)’; }).join(’\n’);
+var prompt = ‘오늘 식단:\n’ + log + ‘\n총:’ + t + ‘kcal 탄’ + Math.round(c) + ‘g 단’ + Math.round(p) + ‘g 지’ + Math.round(f) + ‘g 목표:’ + goal + ‘kcal\n아래 JSON 형식으로만 답해줘:\n{“score”:0,“grade”:“B”,“label”:“한마디”,“summary”:“총평”,“good_points”:[“잘한점”],“bad_points”:[“개선점”],“tomorrow_tip”:“내일추천”}’;
+try {
+var res = await fetch(‘https://api.anthropic.com/v1/messages’, {
+method: ‘POST’,
+headers: { ‘Content-Type’: ‘application/json’, ‘x-api-key’: k, ‘anthropic-version’: ‘2023-06-01’, ‘anthropic-dangerous-direct-browser-access’: ‘true’ },
+body: JSON.stringify({ model: ‘claude-opus-4-5’, max_tokens: 1000, messages: [{ role: ‘user’, content: prompt }] })
 });
 clearInterval(sv);
-var body=await res.json();
-if(!res.ok){alert(‘오류: ‘+(body.error&&body.error.message)||res.status);return;}
-var txt=’’;
-for(var i=0;i<body.content.length;i++){if(body.content[i].type===‘text’)txt+=body.content[i].text;}
-var start=txt.indexOf(’{’),end=txt.lastIndexOf(’}’);
-var d=JSON.parse(txt.slice(start,end+1));
-var score=d.score||0;
-var gb=document.getElementById(‘rvGrade’);
-gb.textContent=d.grade||‘B’;
-gb.className=‘grade ‘+(score>=80?‘g-good’:score>=60?‘g-ok’:‘g-bad’);
-document.getElementById(‘rvTitle’).textContent=d.label||’—’;
-document.getElementById(‘rvBody’).textContent=d.summary||’’;
-document.getElementById(‘rvTip’).textContent=d.tomorrow_tip||’’;
-document.getElementById(‘rvGood’).innerHTML=(d.good_points||[]).map(function(x){return ‘<span class="tag tag-g">✓ ‘+x+’</span>’;}).join(’’);
-document.getElementById(‘rvBad’).innerHTML=(d.bad_points||[]).map(function(x){return ‘<span class="tag tag-w">💡 ‘+x+’</span>’;}).join(’’);
+var data = await res.json();
+if (!res.ok) { alert(‘오류: ’ + (data.error && data.error.message ? data.error.message : res.status)); document.getElementById(‘rvLoader’).style.display = ‘none’; document.getElementById(‘rvBtn’).disabled = false; return; }
+var txt = ‘’;
+for (var i = 0; i < data.content.length; i++) { if (data.content[i].type === ‘text’) txt += data.content[i].text; }
+var s = txt.indexOf(’{’), e2 = txt.lastIndexOf(’}’);
+var d = JSON.parse(txt.slice(s, e2 + 1));
+var score = d.score || 0;
+var gb = document.getElementById(‘rvGrade’);
+gb.textContent = d.grade || ‘B’;
+gb.className = ‘grade ’ + (score >= 80 ? ‘g-good’ : score >= 60 ? ‘g-ok’ : ‘g-bad’);
+document.getElementById(‘rvTitle’).textContent = d.label || ‘—’;
+document.getElementById(‘rvBody’).textContent = d.summary || ‘’;
+document.getElementById(‘rvTip’).textContent = d.tomorrow_tip || ‘’;
+document.getElementById(‘rvGood’).innerHTML = (d.good_points || []).map(function(x) { return ‘<span class="tag tag-g">✓ ’ + x + ‘</span>’; }).join(’’);
+document.getElementById(‘rvBad’).innerHTML = (d.bad_points || []).map(function(x) { return ‘<span class="tag tag-w">💡 ’ + x + ‘</span>’; }).join(’’);
 document.getElementById(‘rvCard’).classList.add(‘show’);
-document.getElementById(‘rvCard’).scrollIntoView({behavior:‘smooth’,block:‘start’});
-}catch(err){clearInterval(sv);alert(’총평 실패: ’+err.message);}
-document.getElementById(‘rvLoader’).style.display=‘none’;
-document.getElementById(‘rvBtn’).disabled=false;
+document.getElementById(‘rvCard’).scrollIntoView({ behavior: ‘smooth’, block: ‘start’ });
+} catch(err) { clearInterval(sv); alert(’총평 실패: ’ + err.message); }
+document.getElementById(‘rvLoader’).style.display = ‘none’;
+document.getElementById(‘rvBtn’).disabled = false;
 }
 
-function resetAll(){
-if(!confirm(‘모든 데이터를 초기화할까요?’))return;
-localStorage.clear();mealLog=[];goal=2000;
-[‘apiKey’,‘apiKey2’].forEach(function(id){var e=document.getElementById(id);if(e)e.value=’’;});
-document.getElementById(‘goalInput’).value=’’;
-[‘keyBtn’,‘keyBtn2’,‘goalBtn’].forEach(function(id){markReset(id);});
-[‘keyMsg’,‘keyMsg2’,‘goalMsg’].forEach(function(id){setMsg(id,’’,’’);});
-document.getElementById(‘goalLbl’).textContent=‘2,000’;
+function resetAll() {
+if (!confirm(‘모든 데이터를 초기화할까요?’)) return;
+localStorage.clear(); mealLog = []; goal = 2000;
+document.getElementById(‘apiKey’).value = ‘’;
+document.getElementById(‘apiKey2’).value = ‘’;
+document.getElementById(‘goalInput’).value = ‘’;
+setReset(‘keyBtn’); setReset(‘keyBtn2’); setReset(‘goalBtn’);
+setMsg(‘keyMsg’, ‘’, ‘’); setMsg(‘keyMsg2’, ‘’, ‘’); setMsg(‘goalMsg’, ‘’, ‘’);
+document.getElementById(‘goalLbl’).textContent = ‘2,000’;
 renderLog();
 }
 </script>
