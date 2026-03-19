@@ -8,23 +8,64 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="app">
-        <div class="topbar">
-            <div class="topbar-title" id="topTitle">칼로리 스캔 🍽️</div>
-            <button class="gear-btn" onclick="go('settings')">⚙️</button>
-        </div>
-
-        <nav class="bnav">
-            <button class="nb on" id="nb-scan" onclick="go('scan')"><span class="nb-icon">📷</span><span class="nb-txt">스캔</span></button>
-            <button class="nb" id="nb-today" onclick="go('today')"><span class="nb-icon">📋</span><span class="nb-txt">오늘</span></button>
-            <button class="nb" id="nb-workout" onclick="go('workout')"><span class="nb-icon">🏋️</span><span class="nb-txt">운동</span></button>
-            <button class="nb" id="nb-women" onclick="go('women')"><span class="nb-icon">🌸</span><span class="nb-txt">건강</span></button>
-            <button class="nb" id="nb-stats" onclick="go('stats')"><span class="nb-icon">📊</span><span class="nb-txt">통계</span></button>
-            <button class="nb" id="nb-settings" onclick="go('settings')"><span class="nb-icon">⚙️</span><span class="nb-txt">설정</span></button>
-        </nav>
+<div id="app">
+    <div class="topbar">
+        <div class="topbar-title" id="topTitle">칼로리 스캔 🍽️</div>
+        <button class="gear-btn" onclick="go('settings')">⚙️</button>
     </div>
 
-    <script src="api.js"></script>
-    <script src="app.js"></script>
-</body>
-</html>
+    <div class="scr on" id="s-scan">
+        <div class="content">
+            <div id="cycleAlertBanner" style="display:none"></div>
+            <div class="card">
+                <div class="sec">식사 구분</div>
+                <div class="meal-grid">
+                    <button class="chip on" onclick="pickMeal(this,'아침')">🌅 아침</button>
+                    <button class="chip" onclick="pickMeal(this,'점심')">☀️ 점심</button>
+                    <button class="chip" onclick="pickMeal(this,'저녁')">🌙 저녁</button>
+                    <button class="chip" onclick="pickMeal(this,'간식')">🍪 간식</button>
+                </div>
+            </div>
+            <div id="upSection" class="up-grid">
+                <button class="up-btn"><span class="up-btn-icon">📷</span>카메라 촬영<input type="file" accept="image/*" capture="environment" onchange="onFile(event)"></button>
+                <button class="up-btn"><span class="up-btn-icon">🖼️</span>갤러리 선택<input type="file" accept="image/*" onchange="onFile(event)"></button>
+            </div>
+            <div class="prev" id="prevBox">
+                <img id="prevImg" src="">
+                <button class="cta" onclick="doAnalyze()">🔍 AI 분석 시작</button>
+                <button class="reset-btn" onclick="resetScan()">다시 선택</button>
+            </div>
+            <div id="loader">
+                <div class="loader-txt">🤖 AI가 음식을 분석하는 중...</div>
+                <div class="loader-bar"><div class="loader-fill"></div></div>
+            </div>
+            <div class="err" id="errBox"></div>
+            <div class="res-wrap" id="resWrap">
+                <div class="cal-hero">
+                    <div class="cal-sub">이 식사의 칼로리</div>
+                    <div class="cal-num" id="rKcal">0</div>
+                    <div class="cal-sub">kcal 추정</div>
+                </div>
+                <div class="card">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+                        <div class="sec" style="margin-bottom:0">감지된 음식</div>
+                        <button onclick="addFoodRow()" style="background:#FFF2EC;color:#FF6B35;border:none;border-radius:8px;padding:5px 10px;font-size:12px;font-weight:700;cursor:pointer">+ 추가</button>
+                    </div>
+                    <div id="foodList"></div>
+                </div>
+                <div style="display:flex;gap:10px">
+                    <button class="add-btn" style="flex:1" onclick="addLog()">✅ 기록하기</button>
+                    <button onclick="resetScan()" style="flex:1;background:#F5F6F8;color:#8B95A1;border:none;border-radius:14px;padding:16px;font-size:14px;font-weight:700;cursor:pointer">❌ 취소</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="sec">✏️ 직접 입력으로 칼로리 계산</div>
+                <textarea id="textFoodInput" class="inp" placeholder="예: 비빔밥 1그릇, 콜라 500ml..." style="width:100%;min-height:76px;resize:none;line-height:1.6"></textarea>
+                <button class="cta" style="margin-top:10px" onclick="doTextAnalyze()">🤖 AI 칼로리 계산하기</button>
+                <div id="textLoader">
+                    <div class="loader-bar"><div class="loader-fill"></div></div>
+                    <div class="loader-txt">AI가 계산하는 중...</div>
+                </div>
+                <div class="err" id="textErrBox"></div>
+                <div id="textResWrap" style="display:none;margin-top:10px">
+                    <div style="background:linear-gradient(135deg,#2E90FA,#6DC3FF);border-radius:16px;padding:18px;color:#fff;text-align:center;margin-
