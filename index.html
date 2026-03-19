@@ -198,18 +198,28 @@ async function doAnalyze() {
                 'anthropic-version': '2023-06-01',
                 'anthropic-dangerous-direct-browser-access': 'true'
             },
-            body: JSON.stringify({
-                model: 'claude-3-5-sonnet-20240620',
+           body: JSON.stringify({
+                // 가장 오류가 적고 모든 계정에서 즉시 사용 가능한 모델입니다.
+                model: 'claude-3-haiku-20240307', 
                 max_tokens: 1024,
                 messages: [{
                     role: 'user',
                     content: [
-                        { type: 'image', source: { type: 'base64', media_type: imgType, data: imgB64 } },
-                        { type: 'text', text: '이 음식 사진의 칼로리와 영양소를 분석해서 반드시 이 JSON 형식으로만 답해줘. 다른 설명은 금지: {"total_kcal":0, "foods":[{"name":"이름", "kcal":0}]}' }
+                        { 
+                            type: 'image', 
+                            source: { 
+                                type: 'base64', 
+                                media_type: imgType, 
+                                data: imgB64 
+                            } 
+                        },
+                        { 
+                            type: 'text', 
+                            text: '음식 분석 후 반드시 이 JSON 형식으로만 답해. 다른 말은 절대 하지마: {"total_kcal":0, "foods":[{"name":"이름", "kcal":0}]}' 
+                        }
                     ]
                 }]
             })
-        });
 
         const data = await res.json();
         if(!res.ok) throw new Error(data.error ? data.error.message : 'API 오류');
