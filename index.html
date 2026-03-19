@@ -769,7 +769,7 @@ async function doAnalyze(){
   document.getElementById('resWrap').style.display='none';
   try{
     const PROMPT='Analyze the food in this image and estimate calories. Reply ONLY with JSON, no other text: {"total_kcal": number, "foods": [{"name": "Korean food name", "kcal": number}]}';
-    const data=await callClaude({model:'claude-3-5-sonnet-20241022',max_tokens:1024,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:imgType,data:imgB64}},{type:'text',text:PROMPT}]}]});
+    const data=await callClaude({model:'claude-3-5-haiku-latest',max_tokens:1024,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:imgType,data:imgB64}},{type:'text',text:PROMPT}]}]});
     if(!data.content||!data.content[0]) throw new Error('응답에 content 없음. data: '+JSON.stringify(data).slice(0,200));
     const rawText=data.content[0].text;
     if(!rawText) throw new Error('content[0].text 없음. type='+data.content[0].type);
@@ -1156,7 +1156,7 @@ async function generateReview(){
     const burned=workoutLog.reduce((s,w)=>s+w.kcal,0);
     const meals=mealLog.map(m=>`${m.type}: ${m.foods.map(f=>`${f.name}(${f.kcal}kcal)`).join(', ')}`).join(' / ');
     const PROMPT=`Goal: ${goal}kcal, Eaten: ${total}kcal, Burned: ${burned}kcal, Net: ${total-burned}kcal. Meals: ${meals}. Rate and advise. JSON only: {"stars":1-5,"review":"2-3 sentences in Korean"}`;
-    const data=await callClaude({model:'claude-3-5-sonnet-20241022',max_tokens:512,messages:[{role:'user',content:PROMPT}]});
+    const data=await callClaude({model:'claude-3-5-haiku-latest',max_tokens:512,messages:[{role:'user',content:PROMPT}]});
     if(!data.content||!data.content[0]||!data.content[0].text) throw new Error('총평 응답 없음');
     const rv=parseJson(data.content[0].text);
     localStorage.setItem('review_'+TODAY,JSON.stringify({stars:rv.stars,text:rv.review}));
@@ -1265,7 +1265,7 @@ async function doTextAnalyze(){
   document.getElementById('textResWrap').style.display='none';
   try{
     const PROMPT2=`Estimate calories for: "${input}". Reply ONLY with JSON, no other text: {"total_kcal": number, "foods": [{"name": "Korean food name", "kcal": number}]}`;
-    const data=await callClaude({model:'claude-3-5-sonnet-20241022',max_tokens:1024,messages:[{role:'user',content:PROMPT2}]});
+    const data=await callClaude({model:'claude-3-5-haiku-latest',max_tokens:1024,messages:[{role:'user',content:PROMPT2}]});
     if(!data.content||!data.content[0]||!data.content[0].text) throw new Error('텍스트 응답 없음: '+JSON.stringify(data).slice(0,200));
     const result=parseJson(data.content[0].text);
     lastTextRes={...result,img:null,type:mealType,isText:true};
