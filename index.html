@@ -203,27 +203,27 @@ async function doAnalyze() {
                 'anthropic-dangerous-direct-browser-access': 'true'
             },
             body: JSON.stringify({
-                model: "claude-3-5-sonnet-latest",
+                // 특정 날짜 대신 latest를 쓰면 계정 권한에 맞는 최신 모델이 자동 선택됩니다.
+                model: "claude-3-5-sonnet-latest", 
                 max_tokens: 1024,
                 messages: [{
-                    role: 'user',
+                    role: "user",
                     content: [
                         { 
-                            type: 'image', 
+                            type: "image", 
                             source: { 
-                                type: 'base64', 
-                                media_type: imgType, 
+                                type: "base64", 
+                                media_type: imgType, // PNG/JPG 자동 대응
                                 data: imgB64 
                             } 
                         },
                         { 
-                            type: 'text', 
-                            text: '이 음식 사진을 분석해서 반드시 다음 JSON 형식으로만 응답해줘: {"total_kcal": 0, "foods": [{"name": "음식명", "kcal": 0}]}' 
+                            type: "text", 
+                            text: "이 음식 사진의 칼로리를 분석해서 반드시 이 JSON 형식으로만 답해줘: {\"total_kcal\": 0, \"foods\": [{\"name\": \"음식명\", \"kcal\": 0}]}" 
                         }
                     ]
                 }]
             })
-        });
 
         const data = await res.json();
 
