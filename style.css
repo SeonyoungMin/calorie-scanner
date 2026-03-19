@@ -1,0 +1,798 @@
+/* ─── BASE STYLES ─── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    height: 100%;
+    background: #F4F6FA;
+    color: #191F28;
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    overflow: hidden;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* ─── TOPBAR ─── */
+.topbar {
+    background: #fff;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #EAECF0;
+    flex-shrink: 0;
+}
+
+.topbar-title {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+}
+
+.gear-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* ─── SCREENS ─── */
+.scr {
+    display: none;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 80px;
+}
+
+.scr.on {
+    display: flex;
+}
+
+/* ─── BOTTOM NAV ─── */
+.bnav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(64px + env(safe-area-inset-bottom, 0px));
+    background: #fff;
+    border-top: 1px solid #EAECF0;
+    display: flex;
+    z-index: 100;
+}
+
+.nb {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    gap: 3px;
+    padding: 0;
+}
+
+.nb-icon {
+    font-size: 20px;
+    transition: transform 0.15s;
+}
+
+.nb.on .nb-icon {
+    transform: scale(1.15);
+}
+
+.nb-txt {
+    font-size: 9px;
+    color: #8B95A1;
+    font-weight: 500;
+}
+
+.nb.on .nb-txt {
+    color: #FF6B35;
+    font-weight: 700;
+}
+
+/* ─── CONTENT & CARDS ─── */
+.content {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.sec {
+    font-size: 11px;
+    font-weight: 700;
+    color: #8B95A1;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* ─── FORMS & INPUTS ─── */
+.row {
+    display: flex;
+    gap: 8px;
+}
+
+.inp {
+    flex: 1;
+    background: #F5F6F8;
+    border: 1.5px solid #EAECF0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.inp:focus {
+    border-color: #FF6B35;
+}
+
+.sbtn {
+    background: #FF6B35;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 18px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* ─── MEAL CHIPS ─── */
+.meal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.chip {
+    background: #F5F6F8;
+    border-radius: 12px;
+    padding: 10px 4px;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    font-size: 12px;
+    font-family: inherit;
+    font-weight: 500;
+    transition: all 0.15s;
+    text-align: center;
+}
+
+.chip.on {
+    background: #FFF2EC;
+    border-color: #FF6B35;
+    color: #FF6B35;
+    font-weight: 700;
+}
+
+/* ─── UPLOAD ─── */
+.up-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.up-btn {
+    background: #fff;
+    border: 1.5px dashed #D0D5DD;
+    border-radius: 18px;
+    padding: 28px 10px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: inherit;
+    color: #344054;
+    transition: all 0.15s;
+}
+
+.up-btn:hover {
+    border-color: #FF6B35;
+    background: #FFF8F5;
+}
+
+.up-btn input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.up-btn-icon {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* ─── PREVIEW & CTA ─── */
+.prev {
+    border-radius: 18px;
+    overflow: hidden;
+    display: none;
+    margin-top: 4px;
+}
+
+.prev img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.cta {
+    background: #FF6B35;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+    letter-spacing: -0.3px;
+}
+
+.reset-btn {
+    background: none;
+    border: none;
+    color: #8B95A1;
+    width: 100%;
+    margin-top: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 6px;
+}
+
+/* ─── RESULT ─── */
+.res-wrap {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.cal-hero {
+    background: linear-gradient(135deg, #FF6B35 0%, #FF9A6C 100%);
+    border-radius: 20px;
+    padding: 24px 20px;
+    color: #fff;
+    text-align: center;
+}
+
+.cal-num {
+    font-size: 54px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.cal-sub {
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.85;
+    margin-top: 6px;
+}
+
+.add-btn {
+    background: #12B76A;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* ─── LOADER ─── */
+#loader, #workoutLoader, #textLoader {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 20px;
+    gap: 12px;
+}
+
+.loader-bar {
+    width: 100%;
+    height: 4px;
+    background: #F0F0F0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.loader-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FF6B35, #FFAB85, #FF6B35);
+    background-size: 200%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 2px;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200%; }
+    100% { background-position: -200%; }
+}
+
+.loader-txt {
+    font-size: 14px;
+    font-weight: 700;
+    color: #FF6B35;
+}
+
+/* ─── ERROR ─── */
+.err {
+    background: #FFF0F1;
+    color: #F04452;
+    padding: 14px;
+    border-radius: 12px;
+    display: none;
+    font-size: 13px;
+    margin-top: 4px;
+    font-weight: 500;
+}
+
+/* ─── TODAY HERO ─── */
+.today-hero {
+    border-radius: 22px;
+    padding: 22px 20px;
+    background: #191F28;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.today-hero::before {
+    content: '';
+    position: absolute;
+    right: -30px;
+    top: -30px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(255, 107, 53, 0.15);
+}
+
+.today-label {
+    font-size: 11px;
+    opacity: 0.5;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.today-kcal {
+    font-size: 44px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin: 4px 0;
+}
+
+.today-goal {
+    font-size: 12px;
+    opacity: 0.6;
+    font-weight: 500;
+}
+
+.prog-wrap {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    height: 8px;
+    margin-top: 14px;
+    overflow: hidden;
+}
+
+.prog-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FF6B35, #FFD166);
+    border-radius: 6px;
+    transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    max-width: 100%;
+}
+
+.net-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 6px 10px;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ─── MACRO ROW ─── */
+.macro-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.macro-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 14px 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.macro-val {
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+}
+
+.macro-lbl {
+    font-size: 10px;
+    font-weight: 600;
+    color: #8B95A1;
+    margin-top: 3px;
+}
+
+/* ─── MEAL LOG ITEM ─── */
+.meal-item {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.meal-item-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+}
+
+.meal-thumb {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.meal-type-badge {
+    font-size: 10px;
+    color: #FF6B35;
+    font-weight: 700;
+    background: #FFF2EC;
+    padding: 2px 7px;
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.meal-food {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.meal-time {
+    font-size: 11px;
+    color: #8B95A1;
+    margin-top: 2px;
+}
+
+.meal-kcal-right {
+    font-size: 17px;
+    font-weight: 900;
+    color: #191F28;
+    white-space: nowrap;
+}
+
+.meal-actions {
+    display: flex;
+    gap: 0;
+    border-top: 1px solid #F2F4F7;
+}
+
+.meal-action-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    padding: 10px 0;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: background 0.15s;
+}
+
+.meal-action-btn:first-child { border-right: 1px solid #F2F4F7; }
+.meal-action-btn.edit { color: #2E90FA; }
+.meal-action-btn.edit:hover { background: #EEF4FF; }
+.meal-action-btn.del { color: #F04452; }
+.meal-action-btn.del:hover { background: #FFF0F1; }
+
+/* ─── WORKOUT SCREEN ─── */
+.workout-hero {
+    background: linear-gradient(135deg, #1D4ED8, #3B82F6);
+    border-radius: 22px;
+    padding: 22px 20px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.workout-hero::before {
+    content: '🔥';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 64px;
+    opacity: 0.15;
+}
+
+.wo-burned {
+    font-size: 44px;
+    font-weight: 900;
+    letter-spacing: -2px;
+}
+
+.wo-cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.wo-cat {
+    background: #F5F6F8;
+    border-radius: 12px;
+    padding: 12px 6px;
+    text-align: center;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: all 0.15s;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.wo-cat.on {
+    background: #EEF4FF;
+    border-color: #2E90FA;
+    color: #2E90FA;
+}
+
+.wo-item {
+    background: #fff;
+    border-radius: 14px;
+    padding: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    margin-bottom: 8px;
+}
+
+/* ─── WATER TRACKER ─── */
+.water-glasses {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.glass {
+    font-size: 26px;
+    cursor: pointer;
+    opacity: 0.35;
+}
+
+.glass.filled {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* ─── WOMEN SCREEN ─── */
+.cycle-hero {
+    background: linear-gradient(135deg, #EC4899, #F472B6);
+    border-radius: 22px;
+    padding: 22px 20px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.cycle-hero::before {
+    content: '🌸';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 64px;
+    opacity: 0.2;
+}
+
+.cycle-day {
+    font-size: 48px;
+    font-weight: 900;
+    letter-spacing: -2px;
+}
+
+.phase-bar {
+    display: flex;
+    height: 10px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 14px;
+    gap: 2px;
+}
+
+.phase-seg {
+    height: 100%;
+    border-radius: 3px;
+    transition: flex 0.3s;
+}
+
+/* ─── STATS SCREEN ─── */
+.stats-hero {
+    background: linear-gradient(135deg, #7C3AED, #A78BFA);
+    border-radius: 22px;
+    padding: 22px 20px;
+    color: #fff;
+}
+
+.stats-avg {
+    font-size: 44px;
+    font-weight: 900;
+    letter-spacing: -2px;
+}
+
+.bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 100px;
+    padding: 0 4px;
+}
+
+.bar-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.bar {
+    width: 100%;
+    border-radius: 6px 6px 0 0;
+    min-height: 4px;
+}
+
+/* ─── REVIEW CARD ─── */
+.review-card {
+    background: linear-gradient(135deg, #1A1F35, #2D3561);
+    border-radius: 22px;
+    padding: 22px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.review-text {
+    font-size: 13px;
+    line-height: 1.7;
+    opacity: 0.88;
+}
+
+/* ─── EDIT MODAL ─── */
+#editModal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 500;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#editModal.open {
+    display: flex;
+}
+
+.edit-sheet {
+    background: #fff;
+    border-radius: 24px 24px 0 0;
+    padding: 22px 20px 40px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.edit-chip {
+    background: #F5F6F8;
+    border-radius: 10px;
+    padding: 8px 2px;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    font-size: 12px;
+    text-align: center;
+}
+
+.edit-chip.on {
+    background: #FFF2EC;
+    border-color: #FF6B35;
+    color: #FF6B35;
+    font-weight: 700;
+}
+
+.edit-save-btn {
+    background: #FF6B35;
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* ─── TOAST ─── */
+#toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #191F28;
+    color: #fff;
+    padding: 11px 20px;
+    border-radius: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none;
+}
+
+#toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+#toast.green { background: #12B76A; }
+#toast.red { background: #F04452; }
