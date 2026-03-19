@@ -190,32 +190,23 @@ async function doAnalyze() {
     document.getElementById('errBox').style.display = 'none';
 
     try {
+        // 이 줄을 아주 정확하게 복사해서 넣으세요!
         const res = await fetch('https://api.anthropic.com/v1/messages', {
-            method: 'POST', // 반드시 대문자 POST여야 합니다!
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': k, // 저장된 API 키
+                'x-api-key': k,
                 'anthropic-version': '2023-06-01',
                 'anthropic-dangerous-direct-browser-access': 'true'
             },
             body: JSON.stringify({
-                model: 'claude-3-haiku-20240307', // 가장 가벼운 모델로 테스트
+                model: 'claude-3-haiku-20240307', 
                 max_tokens: 1024,
                 messages: [{
                     role: 'user',
                     content: [
-                        { 
-                            type: 'image', 
-                            source: { 
-                                type: 'base64', 
-                                media_type: imgType, 
-                                data: imgB64 
-                            } 
-                        },
-                        { 
-                            type: 'text', 
-                            text: '음식 분석 JSON: {"total_kcal":0, "foods":[{"name":"이름", "kcal":0}]}' 
-                        }
+                        { type: 'image', source: { type: 'base64', media_type: imgType, data: imgB64 } },
+                        { type: 'text', text: 'Analyze food calories and return ONLY JSON: {"total_kcal":0, "foods":[{"name":"food_name", "kcal":0}]}' }
                     ]
                 }]
             })
