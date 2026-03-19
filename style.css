@@ -1,0 +1,56 @@
+/* style.css 전체 내용 */
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; background: #F4F6FA; color: #191F28; font-family: 'Noto Sans KR', -apple-system, sans-serif; overflow: hidden; }
+#app { display: flex; flex-direction: column; height: 100%; padding-top: env(safe-area-inset-top, 0px); }
+
+/* TOPBAR */
+.topbar { background: #fff; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #EAECF0; flex-shrink: 0; }
+.topbar-title { font-size: 18px; font-weight: 900; letter-spacing: -0.5px; }
+.gear-btn { background: none; border: none; font-size: 20px; cursor: pointer; }
+
+/* SCREENS */
+.scr { display: none; flex-direction: column; flex: 1; overflow-y: auto; padding-bottom: 110px; }
+.scr.on { display: flex; }
+
+/* BOTTOM NAV */
+.bnav { position: fixed; bottom: 0; left: 0; right: 0; height: calc(64px + env(safe-area-inset-bottom, 0px)); background: #fff; border-top: 1px solid #EAECF0; display: flex; z-index: 100; }
+.nb { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; gap: 4px; }
+.nb-icon { font-size: 22px; transition: transform 0.15s; }
+.nb.on .nb-icon { transform: scale(1.15); }
+.nb-txt { font-size: 10px; color: #8B95A1; font-weight: 500; }
+.nb.on .nb-txt { color: #FF6B35; font-weight: 700; }
+
+/* CONTENT & CARDS */
+.content { padding: 16px 20px; display: flex; flex-direction: column; gap: 14px; }
+.card { background: #fff; border-radius: 20px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.sec { font-size: 11px; font-weight: 700; color: #8B95A1; margin-bottom: 12px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+/* FORM ELEMENTS */
+.row { display: flex; gap: 8px; }
+.inp { flex: 1; background: #F5F6F8; border: 1.5px solid #EAECF0; border-radius: 12px; padding: 12px 14px; font-size: 13px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+.inp:focus { border-color: #FF6B35; }
+.sbtn { background: #FF6B35; color: #fff; border: none; border-radius: 12px; padding: 12px 18px; font-weight: 700; font-family: inherit; cursor: pointer; font-size: 14px; }
+
+/* MEAL CHIPS */
+.meal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.chip { background: #F5F6F8; border-radius: 12px; padding: 10px 4px; cursor: pointer; border: 1.5px solid transparent; font-size: 13px; font-family: inherit; font-weight: 500; transition: all 0.15s; text-align: center; }
+.chip.on { background: #FFF2EC; border-color: #FF6B35; color: #FF6B35; font-weight: 700; }
+
+/* UPLOAD & BUTTONS */
+.up-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.up-btn { background: #fff; border: 1.5px dashed #D0D5DD; border-radius: 18px; padding: 28px 10px; text-align: center; position: relative; cursor: pointer; font-weight: 600; font-size: 14px; color: #344054; }
+.up-btn-icon { font-size: 28px; display: block; margin-bottom: 8px; }
+.up-btn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.cta { background: #FF6B35; color: #fff; border: none; border-radius: 14px; padding: 17px; font-size: 16px; font-weight: 700; width: 100%; margin-top: 10px; cursor: pointer; }
+.add-btn { background: #12B76A; color: #fff; border: none; border-radius: 14px; padding: 17px; font-size: 16px; font-weight: 700; width: 100%; cursor: pointer; }
+
+/* TODAY SCREEN STYLES */
+.today-hero { border-radius: 22px; padding: 24px 20px; background: #191F28; color: #fff; position: relative; overflow: hidden; }
+.today-kcal { font-size: 48px; font-weight: 900; letter-spacing: -2px; margin: 4px 0; }
+.prog-wrap { background: rgba(255,255,255,0.12); border-radius: 6px; height: 8px; margin-top: 16px; overflow: hidden; }
+.prog-fill { height: 100%; background: linear-gradient(90deg, #FF6B35, #FFD166); transition: width 0.6s; }
+
+/* RESULT & PREVIEW */
+.prev { border-radius: 18px; overflow: hidden; display: none; margin-top: 4px; }
+.prev img { width: 100%; max-height: 260px; object-fit: cover; }
+.res-wrap { display: none;
