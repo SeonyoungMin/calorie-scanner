@@ -191,16 +191,15 @@ async function doAnalyze() {
 
     try {
         const res = await fetch('https://api.anthropic.com/v1/messages', {
-            method: 'POST',
+            method: 'POST', // 반드시 대문자 POST여야 합니다!
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': k,
+                'x-api-key': k, // 저장된 API 키
                 'anthropic-version': '2023-06-01',
                 'anthropic-dangerous-direct-browser-access': 'true'
             },
-           body: JSON.stringify({
-                // 가장 오류가 적고 모든 계정에서 즉시 사용 가능한 모델입니다.
-                model: 'claude-3-haiku-20240307', 
+            body: JSON.stringify({
+                model: 'claude-3-haiku-20240307', // 가장 가벼운 모델로 테스트
                 max_tokens: 1024,
                 messages: [{
                     role: 'user',
@@ -215,11 +214,12 @@ async function doAnalyze() {
                         },
                         { 
                             type: 'text', 
-                            text: '음식 분석 후 반드시 이 JSON 형식으로만 답해. 다른 말은 절대 하지마: {"total_kcal":0, "foods":[{"name":"이름", "kcal":0}]}' 
+                            text: '음식 분석 JSON: {"total_kcal":0, "foods":[{"name":"이름", "kcal":0}]}' 
                         }
                     ]
                 }]
             })
+        });
 
         const data = await res.json();
         if(!res.ok) throw new Error(data.error ? data.error.message : 'API 오류');
