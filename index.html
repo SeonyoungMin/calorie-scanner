@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>칼로리 스캔</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="topbar">
+            <div class="topbar-title" id="topTitle">칼로리 스캔 🍽️</div>
+            <button class="gear-btn" onclick="go('settings')">⚙️</button>
+        </div>
+
+        <nav class="bnav">
+            <button class="nb on" id="nb-scan" onclick="go('scan')"><span class="nb-icon">📷</span><span class="nb-txt">스캔</span></button>
+            <button class="nb" id="nb-today" onclick="go('today')"><span class="nb-icon">📋</span><span class="nb-txt">오늘</span></button>
+            <button class="nb" id="nb-workout" onclick="go('workout')"><span class="nb-icon">🏋️</span><span class="nb-txt">운동</span></button>
+            <button class="nb" id="nb-women" onclick="go('women')"><span class="nb-icon">🌸</span><span class="nb-txt">건강</span></button>
+            <button class="nb" id="nb-stats" onclick="go('stats')"><span class="nb-icon">📊</span><span class="nb-txt">통계</span></button>
+            <button class="nb" id="nb-settings" onclick="go('settings')"><span class="nb-icon">⚙️</span><span class="nb-txt">설정</span></button>
+        </nav>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
