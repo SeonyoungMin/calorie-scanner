@@ -15,29 +15,30 @@
         .bnav { position: fixed; bottom: 0; left: 0; right: 0; height: 70px; background: #fff; border-top: 1px solid #E8ECF0; display: flex; z-index: 100; }
         .nb { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; }
         .nb.on .nb-txt { color: #FF6B35; font-weight: 700; }
+        .nb-txt { font-size: 12px; color: #8B95A1; margin-top: 4px; }
         .content { padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
         .card { background: #fff; border-radius: 16px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
         .sec { font-size: 12px; font-weight: 600; color: #8B95A1; margin-bottom: 10px; }
         .row { display: flex; gap: 8px; }
         .inp { flex: 1; background: #F5F6F8; border: 1.5px solid #E8ECF0; border-radius: 10px; padding: 11px; font-size: 13px; outline: none; }
         .sbtn { background: #FF6B35; color: #fff; border: none; border-radius: 10px; padding: 11px 16px; font-weight: 700; cursor: pointer; }
-        .sbtn.ok { background: #00C471; }
         .meal-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-        .chip { background: #F5F6F8; border: 1.5px solid #E8ECF0; border-radius: 12px; padding: 10px 4px; cursor: pointer; border: none; }
-        .chip.on { background: #FFF1EC; border: 1.5px solid #FF6B35; color: #FF6B35; }
+        .chip { background: #F5F6F8; border-radius: 12px; padding: 10px 4px; cursor: pointer; border: 1.5px solid transparent; font-size: 13px; }
+        .chip.on { background: #FFF1EC; border-color: #FF6B35; color: #FF6B35; font-weight: 700; }
         .up-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .up-btn { background: #fff; border: 1.5px solid #E8ECF0; border-radius: 16px; padding: 20px; text-align: center; position: relative; cursor: pointer; }
+        .up-btn { background: #fff; border: 1.5px solid #E8ECF0; border-radius: 16px; padding: 25px 10px; text-align: center; position: relative; cursor: pointer; font-weight: 600; }
         .up-btn input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
-        .prev { border-radius: 16px; overflow: hidden; display: none; margin-top: 10px; }
-        .prev img { width: 100%; max-height: 240px; object-fit: cover; }
+        .prev { border-radius: 16px; overflow: hidden; display: none; margin-top: 10px; position: relative; }
+        .prev img { width: 100%; max-height: 280px; object-fit: cover; display: block; }
         .cta { background: #FF6B35; color: #fff; border: none; border-radius: 14px; padding: 17px; font-size: 16px; font-weight: 700; width: 100%; margin-top: 10px; cursor: pointer; }
         .res-wrap { display: none; flex-direction: column; gap: 10px; margin-top: 10px; }
-        .cal-hero { background: linear-gradient(135deg, #FF6B35, #FF8F60); border-radius: 16px; padding: 22px; color: #fff; text-align: center; }
-        .cal-num { font-size: 48px; font-weight: 800; }
+        .cal-hero { background: linear-gradient(135deg, #FF6B35, #FF8F60); border-radius: 16px; padding: 25px; color: #fff; text-align: center; }
+        .cal-num { font-size: 52px; font-weight: 800; }
         .meal-item { background: #fff; border-radius: 16px; padding: 12px; display: flex; align-items: center; gap: 12px; margin-bottom: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
-        .meal-thumb { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
-        .err { background: #FFF0F1; color: #F04452; padding: 12px; border-radius: 10px; display: none; font-size: 13px; }
-        #loader { display: none; text-align: center; padding: 20px; }
+        .meal-thumb { width: 55px; height: 55px; border-radius: 10px; object-fit: cover; }
+        .err { background: #FFF0F1; color: #F04452; padding: 12px; border-radius: 10px; display: none; font-size: 13px; line-height: 1.4; margin-top: 10px; }
+        #loader { display: none; text-align: center; padding: 20px; font-weight: 600; color: #FF6B35; }
+        .del-btn { background: #F5F6F8; border: none; border-radius: 8px; padding: 5px 8px; color: #8B95A1; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -45,7 +46,7 @@
 <div id="app">
     <div class="topbar">
         <div class="topbar-title" id="topTitle">칼로리 스캔 🍽️</div>
-        <button onclick="go('settings')" style="background:none; border:none; font-size:20px;">⚙️</button>
+        <button onclick="go('settings')" style="background:none; border:none; font-size:20px; cursor:pointer;">⚙️</button>
     </div>
 
     <div class="scr on" id="s-scan">
@@ -61,74 +62,80 @@
             </div>
 
             <div id="upSection" class="up-grid">
-                <div class="up-btn">📷 카메라<input type="file" accept="image/*" capture="environment" onchange="onFile(event)"></div>
-                <div class="up-btn">🖼️ 갤러리<input type="file" accept="image/*" onchange="onFile(event)"></div>
+                <div class="up-btn">📸 카메라 촬영<input type="file" accept="image/*" capture="environment" onchange="onFile(event)"></div>
+                <div class="up-btn">🖼️ 갤러리 선택<input type="file" accept="image/*" onchange="onFile(event)"></div>
             </div>
 
             <div class="prev" id="prevBox">
                 <img id="prevImg" src="">
                 <button class="cta" id="scanBtn" onclick="doAnalyze()">🔍 분석 시작</button>
+                <button onclick="resetScan()" style="background:none; border:none; color:#8B95A1; width:100%; margin-top:10px; font-size:13px; cursor:pointer; text-decoration:underline;">다시 선택</button>
             </div>
 
-            <div id="loader">분석 중입니다...</div>
+            <div id="loader">🚀 AI가 영양 성분을 분석하고 있어요...</div>
             <div class="err" id="errBox"></div>
 
             <div class="res-wrap" id="resWrap">
                 <div class="cal-hero">
                     <div class="cal-num" id="rKcal">0</div>
-                    <div>kcal 추정</div>
+                    <div style="font-weight:600; opacity:0.9;">kcal 추정</div>
                 </div>
-                <div class="card" id="foodList"></div>
-                <button class="cta" style="background:#00C471" onclick="addLog()">+ 오늘 식단에 추가</button>
+                <div class="card">
+                    <div class="sec">감지된 음식</div>
+                    <div id="foodList" style="font-size:14px; line-height:1.8;"></div>
+                </div>
+                <button class="cta" style="background:#00C471" onclick="addLog()">+ 오늘 식단에 기록하기</button>
             </div>
         </div>
     </div>
 
     <div class="scr" id="s-today">
         <div class="content">
-            <div class="card" style="background:#191F28; color:#fff; text-align:center;">
-                <div style="font-size:14px; opacity:0.7;">오늘 섭취</div>
-                <div style="font-size:32px; font-weight:800;"><span id="tKcal">0</span> / <span id="goalLbl">2000</span></div>
+            <div class="card" style="background:#191F28; color:#fff; text-align:center; padding:25px;">
+                <div style="font-size:14px; opacity:0.6; margin-bottom:5px;">오늘 총 섭취량</div>
+                <div style="font-size:36px; font-weight:800;"><span id="tKcal">0</span> <span style="font-size:18px; font-weight:400; opacity:0.5;">/ <span id="goalLbl">2000</span> kcal</span></div>
             </div>
             <div id="mealList"></div>
-            <button class="cta" style="background:#8B95A1" onclick="clearLog()">전체 삭제</button>
+            <button class="cta" style="background:none; color:#8B95A1; border:1px solid #E8ECF0;" onclick="clearLog()">전체 기록 삭제</button>
         </div>
     </div>
 
     <div class="scr" id="s-settings">
         <div class="content">
             <div class="card">
-                <div class="sec">API 키 설정</div>
+                <div class="sec">Claude API Key</div>
                 <div class="row">
                     <input class="inp" type="password" id="apiKey" placeholder="sk-ant-api03-...">
                     <button class="sbtn" onclick="saveKey()">저장</button>
                 </div>
+                <div style="font-size:11px; color:#8B95A1; margin-top:10px;">키는 브라우저 로컬 저장소에만 안전하게 보관됩니다.</div>
             </div>
         </div>
     </div>
 
     <nav class="bnav">
-        <button class="nb on" id="nb-scan" onclick="go('scan')"><span class="nb-txt">스캔</span></button>
-        <button class="nb" id="nb-today" onclick="go('today')"><span class="nb-txt">오늘</span></button>
+        <button class="nb on" id="nb-scan" onclick="go('scan')"><span class="nb-txt">음식 스캔</span></button>
+        <button class="nb" id="nb-today" onclick="go('today')"><span class="nb-txt">오늘 식단</span></button>
         <button class="nb" id="nb-settings" onclick="go('settings')"><span class="nb-txt">설정</span></button>
     </nav>
 </div>
 
 <script>
 let imgB64 = null;
+let imgType = 'image/jpeg'; // 실제 파일 타입을 담을 변수
 let lastRes = null;
 let mealLog = [];
 let mealType = '아침';
 let goal = 2000;
 
-// 초기 데이터 로드
 window.onload = function() {
     const k = localStorage.getItem('ck');
     if (k) document.getElementById('apiKey').value = k;
     const g = localStorage.getItem('cg') || 2000;
     goal = parseInt(g);
     document.getElementById('goalLbl').textContent = goal;
-    const savedLog = localStorage.getItem('mealLog_' + new Date().toISOString().slice(0, 10));
+    const dateKey = new Date().toISOString().slice(0, 10);
+    const savedLog = localStorage.getItem('mealLog_' + dateKey);
     if (savedLog) mealLog = JSON.parse(savedLog);
     renderLog();
 };
@@ -138,6 +145,8 @@ function go(tab) {
     document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
     document.getElementById('s-' + tab).classList.add('on');
     document.getElementById('nb-' + tab).classList.add('on');
+    const titles = { scan: '칼로리 스캔 🍽️', today: '오늘 식단 📋', settings: '설정 ⚙️' };
+    document.getElementById('topTitle').textContent = titles[tab];
     if(tab === 'today') renderLog();
 }
 
@@ -145,7 +154,7 @@ function saveKey() {
     const k = document.getElementById('apiKey').value.trim();
     if(!k) return alert('키를 입력하세요');
     localStorage.setItem('ck', k);
-    alert('저장되었습니다');
+    alert('API 키가 성공적으로 저장되었습니다!');
 }
 
 function pickMeal(btn, type) {
@@ -157,19 +166,24 @@ function pickMeal(btn, type) {
 function onFile(e) {
     const file = e.target.files[0];
     if(!file) return;
+    
+    imgType = file.type; // 파일의 실제 미디어 타입 저장 (중요!)
+    
     const reader = new FileReader();
     reader.onload = function(ev) {
         imgB64 = ev.target.result.split(',')[1];
         document.getElementById('prevImg').src = ev.target.result;
         document.getElementById('prevBox').style.display = 'block';
         document.getElementById('upSection').style.display = 'none';
+        document.getElementById('resWrap').style.display = 'none';
+        document.getElementById('errBox').style.display = 'none';
     };
     reader.readAsDataURL(file);
 }
 
 async function doAnalyze() {
     const k = localStorage.getItem('ck');
-    if(!k) return alert('설정에서 API 키를 먼저 등록하세요!');
+    if(!k) return alert('설정 탭에서 API 키를 먼저 등록해 주세요!');
     
     document.getElementById('loader').style.display = 'block';
     document.getElementById('scanBtn').disabled = true;
@@ -190,8 +204,8 @@ async function doAnalyze() {
                 messages: [{
                     role: 'user',
                     content: [
-                        { type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imgB64 } },
-                        { type: 'text', text: '음식 칼로리 분석 후 반드시 이 JSON 형식으로만 답해: {"total_kcal":0, "foods":[{"name":"이름", "kcal":0}]}' }
+                        { type: 'image', source: { type: 'base64', media_type: imgType, data: imgB64 } },
+                        { type: 'text', text: '이 음식 사진의 칼로리와 영양소를 분석해서 반드시 이 JSON 형식으로만 답해줘. 다른 설명은 금지: {"total_kcal":0, "foods":[{"name":"이름", "kcal":0}]}' }
                     ]
                 }]
             })
@@ -202,18 +216,18 @@ async function doAnalyze() {
 
         const text = data.content[0].text;
         const jsonMatch = text.match(/\{.*\}/s);
-        if(!jsonMatch) throw new Error('분석 데이터 파싱 실패');
+        if(!jsonMatch) throw new Error('AI 응답에서 데이터 형식을 찾을 수 없습니다.');
         
         const result = JSON.parse(jsonMatch[0]);
         lastRes = { ...result, img: document.getElementById('prevImg').src, type: mealType };
         
         document.getElementById('rKcal').textContent = result.total_kcal;
-        document.getElementById('foodList').innerHTML = result.foods.map(f => `<div>${f.name}: ${f.kcal}kcal</div>`).join('');
+        document.getElementById('foodList').innerHTML = result.foods.map(f => `<div>• ${f.name}: <b>${f.kcal}</b> kcal</div>`).join('');
         document.getElementById('resWrap').style.display = 'flex';
         document.getElementById('prevBox').style.display = 'none';
 
     } catch(err) {
-        document.getElementById('errBox').textContent = err.message;
+        document.getElementById('errBox').textContent = '⚠️ 분석 실패: ' + err.message;
         document.getElementById('errBox').style.display = 'block';
     } finally {
         document.getElementById('loader').style.display = 'none';
@@ -223,35 +237,51 @@ async function doAnalyze() {
 
 function addLog() {
     if(!lastRes) return;
-    mealLog.push({ ...lastRes, id: Date.now() });
+    mealLog.push({ ...lastRes, id: Date.now(), time: new Date().toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'}) });
     localStorage.setItem('mealLog_' + new Date().toISOString().slice(0, 10), JSON.stringify(mealLog));
-    alert('기록되었습니다!');
-    location.reload(); // 화면 갱신
+    alert('식단에 성공적으로 추가되었습니다!');
+    go('today');
 }
 
 function renderLog() {
     let total = 0;
     const list = document.getElementById('mealList');
-    list.innerHTML = mealLog.map(m => {
+    list.innerHTML = mealLog.length ? mealLog.map(m => {
         total += m.total_kcal;
         return `
             <div class="meal-item">
                 <img src="${m.img}" class="meal-thumb">
                 <div style="flex:1">
-                    <div style="font-size:12px; color:#FF6B35; font-weight:700;">${m.type}</div>
-                    <div style="font-weight:600;">${m.foods[0].name} 등</div>
+                    <div style="font-size:11px; color:#FF6B35; font-weight:700;">${m.type} · ${m.time}</div>
+                    <div style="font-weight:600; font-size:14px;">${m.foods[0].name}${m.foods.length > 1 ? ' 외 ' + (m.foods.length-1) + '개' : ''}</div>
                 </div>
-                <div style="font-weight:800;">${m.total_kcal} kcal</div>
+                <div style="font-weight:800; font-size:15px; margin-right:10px;">${m.total_kcal} <span style="font-size:11px; font-weight:400; color:#8B95A1;">kcal</span></div>
+                <button class="del-btn" onclick="delItem(${m.id})">✕</button>
             </div>
         `;
-    }).join('');
-    document.getElementById('tKcal').textContent = total;
+    }).join('') : '<div style="text-align:center; padding:50px 0; color:#8B95A1; font-size:14px;">기록된 식단이 없습니다.</div>';
+    document.getElementById('tKcal').textContent = total.toLocaleString();
+}
+
+function delItem(id) {
+    if(!confirm('해당 기록을 삭제할까요?')) return;
+    mealLog = mealLog.filter(m => m.id !== id);
+    localStorage.setItem('mealLog_' + new Date().toISOString().slice(0, 10), JSON.stringify(mealLog));
+    renderLog();
+}
+
+function resetScan() {
+    imgB64 = null;
+    document.getElementById('prevBox').style.display = 'none';
+    document.getElementById('upSection').style.display = 'grid';
+    document.getElementById('resWrap').style.display = 'none';
 }
 
 function clearLog() {
-    if(confirm('오늘 기록을 지울까요?')) {
+    if(confirm('정말 오늘 기록을 모두 지울까요?')) {
         localStorage.removeItem('mealLog_' + new Date().toISOString().slice(0, 10));
-        location.reload();
+        mealLog = [];
+        renderLog();
     }
 }
 </script>
