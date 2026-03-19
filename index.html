@@ -68,4 +68,192 @@
                 </div>
                 <div class="err" id="textErrBox"></div>
                 <div id="textResWrap" style="display:none;margin-top:10px">
-                    <div style="background:linear-gradient(135deg,#2E90FA,#6DC3FF);border-radius:16px;padding:18px;color:#fff;text-align:center;margin-
+                    <div style="background:linear-gradient(135deg,#2E90FA,#6DC3FF);border-radius:16px;padding:18px;color:#fff;text-align:center;margin-bottom:12px">
+                        <div style="font-size:12px;opacity:0.85">총 칼로리</div>
+                        <div style="font-size:44px;font-weight:900;" id="tTextKcal">0</div>
+                        <div style="font-size:12px;opacity:0.85">kcal</div>
+                    </div>
+                    <div id="textFoodList" style="margin-bottom:12px"></div>
+                    <div style="display:flex;gap:10px">
+                        <button class="add-btn" style="flex:1" onclick="addTextLog()">✅ 기록하기</button>
+                        <button onclick="resetTextInput()" style="flex:1;background:#F5F6F8;color:#8B95A1;border:none;border-radius:14px;padding:16px;font-size:14px;font-weight:700;cursor:pointer">❌ 취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scr" id="s-today">
+        <div class="content">
+            <div class="today-hero">
+                <div class="today-label">오늘 총 섭취</div>
+                <div class="today-kcal"><span id="tKcal">0</span> <span style="font-size:20px;opacity:0.5">kcal</span></div>
+                <div class="today-goal">목표 <span id="goalLbl">2000</span> kcal</div>
+                <div class="net-badge">
+                    <span>🔥 운동 소모</span> <span id="tBurned">0</span> kcal | 순 <span id="tNet">0</span> kcal
+                </div>
+                <div class="prog-wrap"><div class="prog-fill" id="progFill"></div></div>
+            </div>
+            <div class="macro-row">
+                <div class="macro-card"><div class="macro-val" id="mAchieved" style="color:#FF6B35">0%</div><div class="macro-lbl">달성률</div></div>
+                <div class="macro-card"><div class="macro-val" id="mCount" style="color:#12B76A">0</div><div class="macro-lbl">기록수</div></div>
+                <div class="macro-card"><div class="macro-val" id="mRemain" style="color:#2E90FA">0</div><div class="macro-lbl">남은 kcal</div></div>
+            </div>
+            <div class="card">
+                <div class="sec">💧 수분 섭취</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                    <div><span style="font-size:26px;font-weight:900;color:#0EA5E9" id="waterMl">0</span><span style="font-size:13px;color:#8B95A1">ml</span></div>
+                    <div style="font-size:12px;color:#8B95A1">목표 2,000ml</div>
+                </div>
+                <div class="water-glasses" id="waterGlasses"></div>
+                <div class="row" style="margin-top:12px">
+                    <button onclick="addWater(200)" style="flex:1;background:#F0F9FF;color:#0EA5E9;border:none;border-radius:10px;padding:10px;font-weight:700;cursor:pointer">+200ml</button>
+                    <button onclick="addWater(500)" style="flex:1;background:#F0F9FF;color:#0EA5E9;border:none;border-radius:10px;padding:10px;font-weight:700;cursor:pointer">+500ml</button>
+                </div>
+            </div>
+            <div class="review-card" id="reviewCard" style="display:none">
+                <div class="review-title">🤖 AI 오늘의 식단 총평</div>
+                <div class="stars-row" id="starsRow"></div>
+                <div class="review-text" id="reviewText"></div>
+            </div>
+            <button id="reviewGenBtn" class="cta" style="background:#fff;color:#191F28;border:1.5px solid #EAECF0;" onclick="generateReview()">✨ AI 식단 총평 받기</button>
+            
+            <div id="mealLogList"></div>
+            <div id="deleteWrap"><button class="del-btn" onclick="showDeleteConfirm()">🗑️ 오늘 기록 전체 삭제</button></div>
+            <div id="deleteConfirm" style="display:none;background:#FFF0F1;border-radius:16px;padding:16px;text-align:center">
+                <div style="color:#F04452;margin-bottom:12px;font-weight:700">전체 삭제할까요?</div>
+                <div class="row">
+                    <button onclick="clearLog()" style="flex:1;background:#F04452;color:#fff;border:none;border-radius:12px;padding:13px;font-weight:700;cursor:pointer">삭제</button>
+                    <button onclick="hideDeleteConfirm()" style="flex:1;background:#F5F6F8;border:none;border-radius:12px;padding:13px;cursor:pointer">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scr" id="s-workout">
+        <div class="content">
+            <div class="workout-hero">
+                <div style="font-size:11px;opacity:0.6;font-weight:500;text-transform:uppercase">오늘 소모 칼로리</div>
+                <div class="wo-burned"><span id="woBurned">0</span> <span style="font-size:20px;opacity:0.5">kcal</span></div>
+            </div>
+            <div class="card">
+                <div class="sec">운동 종류</div>
+                <div class="wo-cat-grid" id="woCatGrid">
+                    <button class="wo-cat on" data-met="7" onclick="pickWoCat(this)">🏃 달리기</button>
+                    <button class="wo-cat" data-met="4" onclick="pickWoCat(this)">🚶 걷기</button>
+                    <button class="wo-cat" data-met="6" onclick="pickWoCat(this)">🚴 사이클</button>
+                    <button class="wo-cat" data-met="5" onclick="pickWoCat(this)">💪 헬스</button>
+                    <button class="wo-cat" data-met="3" onclick="pickWoCat(this)">🧘 요가</button>
+                    <button class="wo-cat" data-met="8" onclick="pickWoCat(this)">🏊 수영</button>
+                </div>
+                <div class="row" style="margin-top:12px">
+                    <input class="inp" type="number" id="woMinsInput" placeholder="운동 시간 (분)">
+                    <input class="inp" type="number" id="woWeightInput" placeholder="체중 (kg)" style="max-width:90px">
+                </div>
+                <button class="cta" onclick="addWorkout()">🔥 운동 기록 추가</button>
+            </div>
+            <div id="workoutLogList"></div>
+        </div>
+    </div>
+
+    <div class="scr" id="s-women">
+        <div class="content">
+            <div class="cycle-hero">
+                <div class="today-label">생리 주기</div>
+                <div class="cycle-day" id="cycleDayNum">-</div>
+                <div id="cyclePhase" style="font-weight:700;margin-top:4px">날짜를 입력해주세요</div>
+                <div class="phase-bar" id="phaseBar"></div>
+            </div>
+            <div class="card">
+                <div class="sec">마지막 생리 시작일</div>
+                <div class="cycle-input-row">
+                    <input class="cycle-inp" type="date" id="lastPeriodDate">
+                    <button class="sbtn" onclick="saveCycleDate()">저장</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scr" id="s-stats">
+        <div class="content">
+            <div class="stats-hero">
+                <div class="today-label">7일 평균 순 칼로리</div>
+                <div class="stats-avg" id="statsAvg">0 kcal</div>
+            </div>
+            <div class="card">
+                <div class="sec">📊 최근 7일 그래프</div>
+                <div class="bar-chart" id="barChart"></div>
+            </div>
+            <div class="card">
+                <div class="sec">⚖️ 체중 기록</div>
+                <div class="row">
+                    <input class="inp" type="number" id="weightInput" placeholder="체중 (kg)">
+                    <button class="sbtn" style="background:#7C3AED" onclick="addWeight()">저장</button>
+                </div>
+                <div id="weightList" style="margin-top:10px"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="scr" id="s-settings">
+        <div class="content">
+            <div class="card">
+                <div class="settings-label">Claude API Key</div>
+                <div class="row">
+                    <input class="inp" type="password" id="apiKey" placeholder="sk-ant-...">
+                    <button class="sbtn" onclick="saveKey()">저장</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="settings-label">하루 목표 칼로리</div>
+                <div class="row">
+                    <input class="inp" type="number" id="goalInput" placeholder="2000">
+                    <button class="sbtn" onclick="saveGoal()">저장</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="settings-label">내 프로필</div>
+                <div class="row">
+                    <input class="inp" type="number" id="myWeight" placeholder="체중(kg)">
+                    <input class="inp" type="number" id="myHeight" placeholder="키(cm)">
+                </div>
+                <button class="sbtn" style="width:100%;margin-top:10px" onclick="saveProfile()">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <nav class="bnav">
+        <button class="nb on" id="nb-scan" onclick="go('scan')"><span class="nb-icon">📷</span><span class="nb-txt">스캔</span></button>
+        <button class="nb" id="nb-today" onclick="go('today')"><span class="nb-icon">📋</span><span class="nb-txt">오늘</span></button>
+        <button class="nb" id="nb-workout" onclick="go('workout')"><span class="nb-icon">🏋️</span><span class="nb-txt">운동</span></button>
+        <button class="nb" id="nb-women" onclick="go('women')"><span class="nb-icon">🌸</span><span class="nb-txt">건강</span></button>
+        <button class="nb" id="nb-stats" onclick="go('stats')"><span class="nb-icon">📊</span><span class="nb-txt">통계</span></button>
+        <button class="nb" id="nb-settings" onclick="go('settings')"><span class="nb-icon">⚙️</span><span class="nb-txt">설정</span></button>
+    </nav>
+
+    <div id="editModal" onclick="closeEditModal(event)">
+        <div class="edit-sheet" id="editSheet" onclick="event.stopPropagation()">
+            <div class="edit-sheet-title">✏️ 식사 수정</div>
+            <div class="edit-type-row" id="editTypeRow">
+                <button class="edit-chip" data-type="아침" onclick="pickEditType(this)">🌅 아침</button>
+                <button class="edit-chip" data-type="점심" onclick="pickEditType(this)">☀️ 점심</button>
+                <button class="edit-chip" data-type="저녁" onclick="pickEditType(this)">🌙 저녁</button>
+                <button class="edit-chip" data-type="간식" onclick="pickEditType(this)">🍪 간식</button>
+            </div>
+            <div id="editFoodList"></div>
+            <div class="edit-total-bar">
+                <span>총 칼로리</span>
+                <span class="edit-total-val"><span id="editTotalKcal">0</span> kcal</span>
+            </div>
+            <button class="edit-save-btn" onclick="saveEditModal()">✅ 저장하기</button>
+            <button class="edit-cancel-btn" style="border:none;background:none;width:100%;margin-top:10px;color:#8B95A1" onclick="closeEditModalDirect()">취소</button>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+</div>
+
+<script src="api.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
